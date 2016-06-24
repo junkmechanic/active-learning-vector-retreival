@@ -1,3 +1,6 @@
+from libc.math cimport pow, sqrt
+
+
 def fileIter(str filename):
     cdef str line
     with open(filename) as ifi:
@@ -28,8 +31,8 @@ cdef double getVectorLength(vector):
     cdef double v_length = 0.0
     cdef int idx
     for idx in vector:
-        v_length += vector[idx] ** 2
-    return v_length ** 0.5
+        v_length += pow(vector[idx], 2)
+    return sqrt(v_length)
 
 
 cdef double getSimilarity(vector1, vector2):
@@ -56,25 +59,6 @@ def buildSimilarityMatrix(all_vectors):
             sim_matrix[matrix_key] = getSimilarity(all_vectors[i],
                                                    all_vectors[j])
     return sim_matrix
-
-
-def printSimilarityMatrix(sim_matrix, size, filename):
-    # The dictionary (hashmap) representing the similarity matrix does not
-    # contain values for the diagnal because the diagnal vector is an identity
-    # vector.
-    with open(filename, 'w') as ofi:
-        for i in range(size):
-            sim_vector = ''
-            for j in range(size):
-                if i == j:
-                    sim_vector += str(float(1))
-                else:
-                    key1, key2 = '{}-{}'.format(i, j), '{}-{}'.format(j, i)
-                    key = key1 if key1 in sim_matrix else key2
-                    sim_vector += str(sim_matrix[key])
-                if j != (size - 1):
-                    sim_vector += '\t'
-            ofi.write(sim_vector + '\n')
 
 
 def main():
