@@ -72,11 +72,12 @@ def main():
     infile = './3k.vec'
     # outfile = './3k.sim'
     all_vectors = getAllVectors(infile)
-    print 'Collected all {} vectors'.format(len(all_vectors))
+    # print 'Collected all {} vectors'.format(len(all_vectors))
     sim_matrix = buildSimilarityMatrix(all_vectors)
-    print 'Built Similarity Matrix'
+    # print 'Built Similarity Matrix'
     # printSimilarityMatrix(sim_matrix, len(all_vectors), outfile)
     # print 'Similarity Matrix saved'
+    # return sim_matrix
 
 
 if __name__ == '__main__':

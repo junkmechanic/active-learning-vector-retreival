@@ -3,6 +3,8 @@
 *.sim
 *.so
 *.vec
+*test*
 build/
 orig/
+simple/
 tmp*
