@@ -1,6 +1,6 @@
 *.pyc
 *.run
-*.sim
+*.sim*
 *.so
 *.vec
 *test*

@@ -1,7 +1,8 @@
-cimport cython
 from libc.math cimport pow, sqrt
 from libc.stdlib cimport strtoul, strtod, malloc, realloc, free
 from libc.stdio cimport fopen, fclose, FILE, fprintf
+
+from cython.parallel import parallel, prange
 
 ctypedef unsigned long ULong
 
@@ -33,6 +34,10 @@ def fileIter(str filename):
 
 
 cdef FeatureVector * parseVector(bytes vector_string):
+    """
+    This can be further sped up by using non-Python vars and strtok() for
+    splitting the strings.
+    """
     cdef bytes index, feature_val
     cdef int i
     cdef char * tmp
@@ -96,7 +101,7 @@ cdef DataSet * getAllVectors(str filename):
     return all_vectors
 
 
-cdef double getVectorLength(FeatureVector * vector):
+cdef double getVectorLength(FeatureVector * vector) nogil:
     cdef double v_length = 0.0
     cdef int idx
     for idx in range(vector.size):
@@ -104,7 +109,7 @@ cdef double getVectorLength(FeatureVector * vector):
     return sqrt(v_length)
 
 
-cdef double getSimilarity(FeatureVector * vector1, FeatureVector * vector2):
+cdef double getSimilarity(FeatureVector * vector1, FeatureVector * vector2) nogil:
     if vector1.size > vector2.size:
         vector1, vector2 = vector2, vector1
 
@@ -118,10 +123,11 @@ cdef double getSimilarity(FeatureVector * vector1, FeatureVector * vector2):
     return dot_prod / (getVectorLength(vector1) * getVectorLength(vector2))
 
 
-# @cython.cdivision(True)
-# @cython.wraparound(False)
-# @cython.boundscheck(False)
 cdef Similarity * buildSimilarityMatrix(DataSet * all_vectors):
+    """
+    The matrix calculation is run in parallel using OpenMP Cython API.
+    I found 'guided' scheduling to perform the best.
+    """
     cdef ULong i, j
     cdef bytes matrix_key
     cdef ULong num_entries = <ULong>((pow(all_vectors.size, 2) -
@@ -133,13 +139,15 @@ cdef Similarity * buildSimilarityMatrix(DataSet * all_vectors):
     sim_matrix.size = num_entries
     if not sim_matrix.value:
         raise MemoryError()
-    cdef ULong counter = 0
-    for i in range(all_vectors.size - 1):
-        for j in range(i + 1, all_vectors.size):
-            matrix_key = str(i) + '-' + str(j)
-            sim_matrix.value[counter] = getSimilarity(&all_vectors.features[i],
-                                                      &all_vectors.features[j])
-            counter += 1
+    cdef ULong counter
+    with nogil, parallel():
+        for i in prange(all_vectors.size - 1, schedule='guided'):
+            for j in range(i + 1, all_vectors.size):
+                counter = (all_vectors.size * i) - (i * (i + 1) / 2) + (j - i) - 1
+                sim_matrix.value[counter] = getSimilarity(
+                    &all_vectors.features[i],
+                    &all_vectors.features[j]
+                )
     return sim_matrix
 
 
@@ -152,13 +160,17 @@ cdef printSimilarityMatrix(Similarity * sim_matrix, ULong size,  str outfile):
 
 
 def main():
+    """
+    Before running, change the value of batch_size to speed up reading the
+    input file
+    """
     cdef str infile = './3k.vec'
     cdef str outfile = './3k.sim'
     cdef DataSet * all_vectors = getAllVectors(infile)
     # print 'Collected all {} vectors'.format(all_vectors.size)
     sim_matrix = buildSimilarityMatrix(all_vectors)
     # print 'Built Similarity Matrix'
-    # printSimilarityMatrix(sim_matrix, all_vectors.size, outfile)
+    printSimilarityMatrix(sim_matrix, all_vectors.size, outfile)
     # print 'Similarity Matrix saved'
     free(all_vectors.features.index)
     free(all_vectors.features.value)
