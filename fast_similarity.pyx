@@ -5,6 +5,7 @@ from libc.stdio cimport fopen, fclose, FILE, fprintf
 from cython.parallel import parallel, prange
 
 ctypedef unsigned long ULong
+ctypedef long long LLong
 
 
 cdef struct FeatureVector:
@@ -19,7 +20,7 @@ cdef struct DataSet:
 
 
 cdef struct Similarity:
-    ULong size
+    LLong size
     double * value
 
 
@@ -127,10 +128,22 @@ cdef Similarity * buildSimilarityMatrix(DataSet * all_vectors):
     """
     The matrix calculation is run in parallel using OpenMP Cython API.
     I found 'guided' scheduling to perform the best.
+
+    Unsinged long is not allowed in OpenMP for now and the number of entries
+    exceed the limits of long.
+
+    The matrix is stored in the form a list the indices of which are determined
+    from the participating vector pair. Assuming the following declarations:
+        K : total number of vectors
+        m : index of the first vector
+        n : index of the second vector
+        m < n
+    The cosine similarity of the pair is stored at the index (with 0-indexing):
+        Km - m(m+1)/2 + (n-m) - 1
     """
-    cdef ULong i, j
+    cdef LLong i, j
     cdef bytes matrix_key
-    cdef ULong num_entries = <ULong>((pow(all_vectors.size, 2) -
+    cdef LLong num_entries = <LLong>((pow(all_vectors.size, 2) -
                                       all_vectors.size) / 2)
     cdef Similarity * sim_matrix = <Similarity *>malloc(sizeof(Similarity))
     if not sim_matrix:
@@ -139,11 +152,15 @@ cdef Similarity * buildSimilarityMatrix(DataSet * all_vectors):
     sim_matrix.size = num_entries
     if not sim_matrix.value:
         raise MemoryError()
-    cdef ULong counter
+    cdef LLong counter
+    # for i in range(all_vectors.size - 1):
     with nogil, parallel():
         for i in prange(all_vectors.size - 1, schedule='guided'):
             for j in range(i + 1, all_vectors.size):
-                counter = (all_vectors.size * i) - (i * (i + 1) / 2) + (j - i) - 1
+                counter = ((all_vectors.size * i)
+                           - (i * (i + 1) / 2)
+                           + (j - i)
+                           - 1)
                 sim_matrix.value[counter] = getSimilarity(
                     &all_vectors.features[i],
                     &all_vectors.features[j]
@@ -152,7 +169,7 @@ cdef Similarity * buildSimilarityMatrix(DataSet * all_vectors):
 
 
 cdef printSimilarityMatrix(Similarity * sim_matrix, ULong size,  str outfile):
-    cdef int idx
+    cdef LLong idx
     cdef FILE * f = fopen(outfile, "w")
     for idx in range(sim_matrix.size):
         fprintf(f, "%f\n", sim_matrix.value[idx])
@@ -167,11 +184,11 @@ def main():
     cdef str infile = './3k.vec'
     cdef str outfile = './3k.sim'
     cdef DataSet * all_vectors = getAllVectors(infile)
-    # print 'Collected all {} vectors'.format(all_vectors.size)
+    print 'Collected all {} vectors'.format(all_vectors.size)
     sim_matrix = buildSimilarityMatrix(all_vectors)
-    # print 'Built Similarity Matrix'
+    print 'Built Similarity Matrix'
     printSimilarityMatrix(sim_matrix, all_vectors.size, outfile)
-    # print 'Similarity Matrix saved'
+    print 'Similarity Matrix saved'
     free(all_vectors.features.index)
     free(all_vectors.features.value)
     free(all_vectors.features)

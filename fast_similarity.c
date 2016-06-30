@@ -486,10 +486,19 @@ static const char *__pyx_f[] = {
  * from cython.parallel import parallel, prange
  * 
  * ctypedef unsigned long ULong             # <<<<<<<<<<<<<<
- * 
+ * ctypedef long long LLong
  * 
  */
 typedef unsigned long __pyx_t_15fast_similarity_ULong;
+
+/* "fast_similarity.pyx":8
+ * 
+ * ctypedef unsigned long ULong
+ * ctypedef long long LLong             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+typedef PY_LONG_LONG __pyx_t_15fast_similarity_LLong;
 
 /*--- Type declarations ---*/
 struct __pyx_obj_15fast_similarity___pyx_scope_struct__fileIter;
@@ -497,7 +506,7 @@ struct __pyx_t_15fast_similarity_FeatureVector;
 struct __pyx_t_15fast_similarity_DataSet;
 struct __pyx_t_15fast_similarity_Similarity;
 
-/* "fast_similarity.pyx":10
+/* "fast_similarity.pyx":11
  * 
  * 
  * cdef struct FeatureVector:             # <<<<<<<<<<<<<<
@@ -510,7 +519,7 @@ struct __pyx_t_15fast_similarity_FeatureVector {
   double *value;
 };
 
-/* "fast_similarity.pyx":16
+/* "fast_similarity.pyx":17
  * 
  * 
  * cdef struct DataSet:             # <<<<<<<<<<<<<<
@@ -522,19 +531,19 @@ struct __pyx_t_15fast_similarity_DataSet {
   struct __pyx_t_15fast_similarity_FeatureVector *features;
 };
 
-/* "fast_similarity.pyx":21
+/* "fast_similarity.pyx":22
  * 
  * 
  * cdef struct Similarity:             # <<<<<<<<<<<<<<
- *     ULong size
+ *     LLong size
  *     double * value
  */
 struct __pyx_t_15fast_similarity_Similarity {
-  __pyx_t_15fast_similarity_ULong size;
+  __pyx_t_15fast_similarity_LLong size;
   double *value;
 };
 
-/* "fast_similarity.pyx":29
+/* "fast_similarity.pyx":30
  * # The compromise in speed is to accomodate for reading one line at a time from
  * # the file instead of trying to load the entire file in the memory
  * def fileIter(str filename):             # <<<<<<<<<<<<<<
@@ -789,6 +798,9 @@ static CYTHON_INLINE int __Pyx_PyErr_ExceptionMatchesInState(PyThreadState* tsta
   #define __PYX_FORCE_INIT_THREADS 0
 #endif
 
+/* None.proto */
+static CYTHON_INLINE __pyx_t_15fast_similarity_LLong __Pyx_div___pyx_t_15fast_similarity_LLong(__pyx_t_15fast_similarity_LLong, __pyx_t_15fast_similarity_LLong);
+
 /* IncludeStringH.proto */
 #include <string.h>
 
@@ -824,6 +836,9 @@ static PyObject* __pyx_print_kwargs = 0;
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_unsigned_long(unsigned long value);
 
+/* CIntToPy.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_PY_LONG_LONG(PY_LONG_LONG value);
+
 /* CIntFromPy.proto */
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
@@ -832,6 +847,9 @@ static int __Pyx_PrintOne(PyObject* stream, PyObject *o);
 
 /* CIntFromPy.proto */
 static CYTHON_INLINE unsigned long __Pyx_PyInt_As_unsigned_long(PyObject *);
+
+/* CIntFromPy.proto */
+static CYTHON_INLINE PY_LONG_LONG __Pyx_PyInt_As_PY_LONG_LONG(PyObject *);
 
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
@@ -946,10 +964,11 @@ static const char __pyx_k_print[] = "print";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_split[] = "split";
 static const char __pyx_k_throw[] = "throw";
-static const char __pyx_k_3k_sim[] = "./3k.sim";
-static const char __pyx_k_3k_vec[] = "./3k.vec";
+static const char __pyx_k_format[] = "format";
 static const char __pyx_k_infile[] = "infile";
 static const char __pyx_k_main_2[] = "main";
+static const char __pyx_k_80k_sim[] = "./80k.sim";
+static const char __pyx_k_80k_vec[] = "./80k.vec";
 static const char __pyx_k_outfile[] = "outfile";
 static const char __pyx_k_fileIter[] = "fileIter";
 static const char __pyx_k_filename[] = "filename";
@@ -958,12 +977,18 @@ static const char __pyx_k_MemoryError[] = "MemoryError";
 static const char __pyx_k_all_vectors[] = "all_vectors";
 static const char __pyx_k_StopIteration[] = "StopIteration";
 static const char __pyx_k_fast_similarity[] = "fast_similarity";
+static const char __pyx_k_Collected_all_vectors[] = "Collected all {} vectors";
+static const char __pyx_k_Built_Similarity_Matrix[] = "Built Similarity Matrix";
+static const char __pyx_k_Similarity_Matrix_saved[] = "Similarity Matrix saved";
 static const char __pyx_k_Ran_out_of_memory_while_reading[] = "Ran out of memory while reading all vectors";
 static const char __pyx_k_home_ankur_devbench_active_lear[] = "/home/ankur/devbench/active_learning/fast_similarity.pyx";
-static PyObject *__pyx_kp_s_3k_sim;
-static PyObject *__pyx_kp_s_3k_vec;
+static PyObject *__pyx_kp_s_80k_sim;
+static PyObject *__pyx_kp_s_80k_vec;
+static PyObject *__pyx_kp_s_Built_Similarity_Matrix;
+static PyObject *__pyx_kp_s_Collected_all_vectors;
 static PyObject *__pyx_n_s_MemoryError;
 static PyObject *__pyx_kp_s_Ran_out_of_memory_while_reading;
+static PyObject *__pyx_kp_s_Similarity_Matrix_saved;
 static PyObject *__pyx_n_s_StopIteration;
 static PyObject *__pyx_kp_s__2;
 static PyObject *__pyx_n_s_all_vectors;
@@ -976,6 +1001,7 @@ static PyObject *__pyx_n_s_fast_similarity;
 static PyObject *__pyx_n_s_file;
 static PyObject *__pyx_n_s_fileIter;
 static PyObject *__pyx_n_s_filename;
+static PyObject *__pyx_n_s_format;
 static PyObject *__pyx_kp_s_home_ankur_devbench_active_lear;
 static PyObject *__pyx_n_s_ifi;
 static PyObject *__pyx_n_s_infile;
@@ -1003,7 +1029,7 @@ static PyObject *__pyx_codeobj__5;
 static PyObject *__pyx_codeobj__7;
 static PyObject *__pyx_gb_15fast_similarity_2generator(__pyx_CoroutineObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
-/* "fast_similarity.pyx":29
+/* "fast_similarity.pyx":30
  * # The compromise in speed is to accomodate for reading one line at a time from
  * # the file instead of trying to load the entire file in the memory
  * def fileIter(str filename):             # <<<<<<<<<<<<<<
@@ -1018,7 +1044,7 @@ static PyObject *__pyx_pw_15fast_similarity_1fileIter(PyObject *__pyx_self, PyOb
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("fileIter (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_filename), (&PyString_Type), 1, "filename", 1))) __PYX_ERR(0, 29, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_filename), (&PyString_Type), 1, "filename", 1))) __PYX_ERR(0, 30, __pyx_L1_error)
   __pyx_r = __pyx_pf_15fast_similarity_fileIter(__pyx_self, ((PyObject*)__pyx_v_filename));
 
   /* function exit code */
@@ -1045,7 +1071,7 @@ static PyObject *__pyx_pf_15fast_similarity_fileIter(CYTHON_UNUSED PyObject *__p
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_filename);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_filename);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_15fast_similarity_2generator, (PyObject *) __pyx_cur_scope, __pyx_n_s_fileIter, __pyx_n_s_fileIter); if (unlikely(!gen)) __PYX_ERR(0, 29, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_15fast_similarity_2generator, (PyObject *) __pyx_cur_scope, __pyx_n_s_fileIter, __pyx_n_s_fileIter); if (unlikely(!gen)) __PYX_ERR(0, 30, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -1088,9 +1114,9 @@ static PyObject *__pyx_gb_15fast_similarity_2generator(__pyx_CoroutineObject *__
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 29, __pyx_L1_error)
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 30, __pyx_L1_error)
 
-  /* "fast_similarity.pyx":31
+  /* "fast_similarity.pyx":32
  * def fileIter(str filename):
  *     cdef str line
  *     with open(filename) as ifi:             # <<<<<<<<<<<<<<
@@ -1098,17 +1124,17 @@ static PyObject *__pyx_gb_15fast_similarity_2generator(__pyx_CoroutineObject *__
  *             yield line
  */
   /*with:*/ {
-    __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 31, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 32, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_cur_scope->__pyx_v_filename);
     __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_filename);
     PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_cur_scope->__pyx_v_filename);
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 31, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 32, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_3 = __Pyx_PyObject_LookupSpecial(__pyx_t_2, __pyx_n_s_exit); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 31, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_LookupSpecial(__pyx_t_2, __pyx_n_s_exit); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 32, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_LookupSpecial(__pyx_t_2, __pyx_n_s_enter); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 31, __pyx_L4_error)
+    __pyx_t_4 = __Pyx_PyObject_LookupSpecial(__pyx_t_2, __pyx_n_s_enter); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 32, __pyx_L4_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_4))) {
@@ -1121,10 +1147,10 @@ static PyObject *__pyx_gb_15fast_similarity_2generator(__pyx_CoroutineObject *__
       }
     }
     if (__pyx_t_5) {
-      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 31, __pyx_L4_error)
+      __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 32, __pyx_L4_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     } else {
-      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 31, __pyx_L4_error)
+      __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 32, __pyx_L4_error)
     }
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -1144,7 +1170,7 @@ static PyObject *__pyx_gb_15fast_similarity_2generator(__pyx_CoroutineObject *__
           __pyx_cur_scope->__pyx_v_ifi = __pyx_t_4;
           __pyx_t_4 = 0;
 
-          /* "fast_similarity.pyx":32
+          /* "fast_similarity.pyx":33
  *     cdef str line
  *     with open(filename) as ifi:
  *         for line in ifi:             # <<<<<<<<<<<<<<
@@ -1155,26 +1181,26 @@ static PyObject *__pyx_gb_15fast_similarity_2generator(__pyx_CoroutineObject *__
             __pyx_t_4 = __pyx_cur_scope->__pyx_v_ifi; __Pyx_INCREF(__pyx_t_4); __pyx_t_9 = 0;
             __pyx_t_10 = NULL;
           } else {
-            __pyx_t_9 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_cur_scope->__pyx_v_ifi); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 32, __pyx_L8_error)
+            __pyx_t_9 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_cur_scope->__pyx_v_ifi); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 33, __pyx_L8_error)
             __Pyx_GOTREF(__pyx_t_4);
-            __pyx_t_10 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 32, __pyx_L8_error)
+            __pyx_t_10 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 33, __pyx_L8_error)
           }
           for (;;) {
             if (likely(!__pyx_t_10)) {
               if (likely(PyList_CheckExact(__pyx_t_4))) {
                 if (__pyx_t_9 >= PyList_GET_SIZE(__pyx_t_4)) break;
                 #if CYTHON_COMPILING_IN_CPYTHON
-                __pyx_t_2 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_9); __Pyx_INCREF(__pyx_t_2); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 32, __pyx_L8_error)
+                __pyx_t_2 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_9); __Pyx_INCREF(__pyx_t_2); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 33, __pyx_L8_error)
                 #else
-                __pyx_t_2 = PySequence_ITEM(__pyx_t_4, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 32, __pyx_L8_error)
+                __pyx_t_2 = PySequence_ITEM(__pyx_t_4, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 33, __pyx_L8_error)
                 __Pyx_GOTREF(__pyx_t_2);
                 #endif
               } else {
                 if (__pyx_t_9 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
                 #if CYTHON_COMPILING_IN_CPYTHON
-                __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_9); __Pyx_INCREF(__pyx_t_2); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 32, __pyx_L8_error)
+                __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_9); __Pyx_INCREF(__pyx_t_2); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 33, __pyx_L8_error)
                 #else
-                __pyx_t_2 = PySequence_ITEM(__pyx_t_4, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 32, __pyx_L8_error)
+                __pyx_t_2 = PySequence_ITEM(__pyx_t_4, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 33, __pyx_L8_error)
                 __Pyx_GOTREF(__pyx_t_2);
                 #endif
               }
@@ -1184,19 +1210,19 @@ static PyObject *__pyx_gb_15fast_similarity_2generator(__pyx_CoroutineObject *__
                 PyObject* exc_type = PyErr_Occurred();
                 if (exc_type) {
                   if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-                  else __PYX_ERR(0, 32, __pyx_L8_error)
+                  else __PYX_ERR(0, 33, __pyx_L8_error)
                 }
                 break;
               }
               __Pyx_GOTREF(__pyx_t_2);
             }
-            if (!(likely(PyString_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 32, __pyx_L8_error)
+            if (!(likely(PyString_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "str", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 33, __pyx_L8_error)
             __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_line);
             __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_line, ((PyObject*)__pyx_t_2));
             __Pyx_GIVEREF(__pyx_t_2);
             __pyx_t_2 = 0;
 
-            /* "fast_similarity.pyx":33
+            /* "fast_similarity.pyx":34
  *     with open(filename) as ifi:
  *         for line in ifi:
  *             yield line             # <<<<<<<<<<<<<<
@@ -1240,9 +1266,9 @@ static PyObject *__pyx_gb_15fast_similarity_2generator(__pyx_CoroutineObject *__
             __Pyx_XGOTREF(__pyx_t_8);
             __pyx_t_9 = __pyx_cur_scope->__pyx_t_5;
             __pyx_t_10 = __pyx_cur_scope->__pyx_t_6;
-            if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 33, __pyx_L8_error)
+            if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 34, __pyx_L8_error)
 
-            /* "fast_similarity.pyx":32
+            /* "fast_similarity.pyx":33
  *     cdef str line
  *     with open(filename) as ifi:
  *         for line in ifi:             # <<<<<<<<<<<<<<
@@ -1252,7 +1278,7 @@ static PyObject *__pyx_gb_15fast_similarity_2generator(__pyx_CoroutineObject *__
           }
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "fast_similarity.pyx":31
+          /* "fast_similarity.pyx":32
  * def fileIter(str filename):
  *     cdef str line
  *     with open(filename) as ifi:             # <<<<<<<<<<<<<<
@@ -1272,20 +1298,20 @@ static PyObject *__pyx_gb_15fast_similarity_2generator(__pyx_CoroutineObject *__
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
         /*except:*/ {
           __Pyx_AddTraceback("fast_similarity.fileIter", __pyx_clineno, __pyx_lineno, __pyx_filename);
-          if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_2, &__pyx_t_1) < 0) __PYX_ERR(0, 31, __pyx_L10_except_error)
+          if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_2, &__pyx_t_1) < 0) __PYX_ERR(0, 32, __pyx_L10_except_error)
           __Pyx_GOTREF(__pyx_t_4);
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_5 = PyTuple_Pack(3, __pyx_t_4, __pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 31, __pyx_L10_except_error)
+          __pyx_t_5 = PyTuple_Pack(3, __pyx_t_4, __pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 32, __pyx_L10_except_error)
           __Pyx_GOTREF(__pyx_t_5);
           __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 31, __pyx_L10_except_error)
+          if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 32, __pyx_L10_except_error)
           __Pyx_GOTREF(__pyx_t_11);
           __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_11);
           __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-          if (__pyx_t_12 < 0) __PYX_ERR(0, 31, __pyx_L10_except_error)
+          if (__pyx_t_12 < 0) __PYX_ERR(0, 32, __pyx_L10_except_error)
           __pyx_t_13 = ((!(__pyx_t_12 != 0)) != 0);
           if (__pyx_t_13) {
             __Pyx_GIVEREF(__pyx_t_4);
@@ -1293,7 +1319,7 @@ static PyObject *__pyx_gb_15fast_similarity_2generator(__pyx_CoroutineObject *__
             __Pyx_XGIVEREF(__pyx_t_1);
             __Pyx_ErrRestoreWithState(__pyx_t_4, __pyx_t_2, __pyx_t_1);
             __pyx_t_4 = 0; __pyx_t_2 = 0; __pyx_t_1 = 0; 
-            __PYX_ERR(0, 31, __pyx_L10_except_error)
+            __PYX_ERR(0, 32, __pyx_L10_except_error)
           }
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -1321,7 +1347,7 @@ static PyObject *__pyx_gb_15fast_similarity_2generator(__pyx_CoroutineObject *__
         if (__pyx_t_3) {
           __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple_, NULL);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 31, __pyx_L1_error)
+          if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 32, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         }
@@ -1336,7 +1362,7 @@ static PyObject *__pyx_gb_15fast_similarity_2generator(__pyx_CoroutineObject *__
     __pyx_L22:;
   }
 
-  /* "fast_similarity.pyx":29
+  /* "fast_similarity.pyx":30
  * # The compromise in speed is to accomodate for reading one line at a time from
  * # the file instead of trying to load the entire file in the memory
  * def fileIter(str filename):             # <<<<<<<<<<<<<<
@@ -1361,7 +1387,7 @@ static PyObject *__pyx_gb_15fast_similarity_2generator(__pyx_CoroutineObject *__
   return __pyx_r;
 }
 
-/* "fast_similarity.pyx":36
+/* "fast_similarity.pyx":37
  * 
  * 
  * cdef FeatureVector * parseVector(bytes vector_string):             # <<<<<<<<<<<<<<
@@ -1393,14 +1419,14 @@ static struct __pyx_t_15fast_similarity_FeatureVector *__pyx_f_15fast_similarity
   char const *__pyx_t_12;
   __Pyx_RefNannySetupContext("parseVector", 0);
 
-  /* "fast_similarity.pyx":44
+  /* "fast_similarity.pyx":45
  *     cdef int i
  *     cdef char * tmp
  *     feature_strings = vector_string.split()             # <<<<<<<<<<<<<<
  *     cdef int num_features = len(feature_strings)
  *     cdef FeatureVector * features = <FeatureVector *>malloc(
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_vector_string, __pyx_n_s_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 44, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_vector_string, __pyx_n_s_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
@@ -1413,27 +1439,27 @@ static struct __pyx_t_15fast_similarity_FeatureVector *__pyx_f_15fast_similarity
     }
   }
   if (__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 44, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 45, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 44, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 45, __pyx_L1_error)
   }
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_feature_strings = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "fast_similarity.pyx":45
+  /* "fast_similarity.pyx":46
  *     cdef char * tmp
  *     feature_strings = vector_string.split()
  *     cdef int num_features = len(feature_strings)             # <<<<<<<<<<<<<<
  *     cdef FeatureVector * features = <FeatureVector *>malloc(
  *         sizeof(FeatureVector)
  */
-  __pyx_t_4 = PyObject_Length(__pyx_v_feature_strings); if (unlikely(__pyx_t_4 == -1)) __PYX_ERR(0, 45, __pyx_L1_error)
+  __pyx_t_4 = PyObject_Length(__pyx_v_feature_strings); if (unlikely(__pyx_t_4 == -1)) __PYX_ERR(0, 46, __pyx_L1_error)
   __pyx_v_num_features = __pyx_t_4;
 
-  /* "fast_similarity.pyx":46
+  /* "fast_similarity.pyx":47
  *     feature_strings = vector_string.split()
  *     cdef int num_features = len(feature_strings)
  *     cdef FeatureVector * features = <FeatureVector *>malloc(             # <<<<<<<<<<<<<<
@@ -1442,7 +1468,7 @@ static struct __pyx_t_15fast_similarity_FeatureVector *__pyx_f_15fast_similarity
  */
   __pyx_v_features = ((struct __pyx_t_15fast_similarity_FeatureVector *)malloc((sizeof(struct __pyx_t_15fast_similarity_FeatureVector))));
 
-  /* "fast_similarity.pyx":49
+  /* "fast_similarity.pyx":50
  *         sizeof(FeatureVector)
  *     )
  *     if not features:             # <<<<<<<<<<<<<<
@@ -1452,16 +1478,16 @@ static struct __pyx_t_15fast_similarity_FeatureVector *__pyx_f_15fast_similarity
   __pyx_t_5 = ((!(__pyx_v_features != 0)) != 0);
   if (__pyx_t_5) {
 
-    /* "fast_similarity.pyx":50
+    /* "fast_similarity.pyx":51
  *     )
  *     if not features:
  *         raise MemoryError()             # <<<<<<<<<<<<<<
  *     features.index = <ULong *>malloc(sizeof(ULong) *
  *                                                 num_features)
  */
-    PyErr_NoMemory(); __PYX_ERR(0, 50, __pyx_L1_error)
+    PyErr_NoMemory(); __PYX_ERR(0, 51, __pyx_L1_error)
 
-    /* "fast_similarity.pyx":49
+    /* "fast_similarity.pyx":50
  *         sizeof(FeatureVector)
  *     )
  *     if not features:             # <<<<<<<<<<<<<<
@@ -1470,7 +1496,7 @@ static struct __pyx_t_15fast_similarity_FeatureVector *__pyx_f_15fast_similarity
  */
   }
 
-  /* "fast_similarity.pyx":51
+  /* "fast_similarity.pyx":52
  *     if not features:
  *         raise MemoryError()
  *     features.index = <ULong *>malloc(sizeof(ULong) *             # <<<<<<<<<<<<<<
@@ -1479,7 +1505,7 @@ static struct __pyx_t_15fast_similarity_FeatureVector *__pyx_f_15fast_similarity
  */
   __pyx_v_features->index = ((__pyx_t_15fast_similarity_ULong *)malloc(((sizeof(__pyx_t_15fast_similarity_ULong)) * __pyx_v_num_features)));
 
-  /* "fast_similarity.pyx":53
+  /* "fast_similarity.pyx":54
  *     features.index = <ULong *>malloc(sizeof(ULong) *
  *                                                 num_features)
  *     features.value = <double *>malloc(sizeof(double) * num_features)             # <<<<<<<<<<<<<<
@@ -1488,7 +1514,7 @@ static struct __pyx_t_15fast_similarity_FeatureVector *__pyx_f_15fast_similarity
  */
   __pyx_v_features->value = ((double *)malloc(((sizeof(double)) * __pyx_v_num_features)));
 
-  /* "fast_similarity.pyx":54
+  /* "fast_similarity.pyx":55
  *                                                 num_features)
  *     features.value = <double *>malloc(sizeof(double) * num_features)
  *     if not features.index or not features.value:             # <<<<<<<<<<<<<<
@@ -1506,16 +1532,16 @@ static struct __pyx_t_15fast_similarity_FeatureVector *__pyx_f_15fast_similarity
   __pyx_L5_bool_binop_done:;
   if (__pyx_t_5) {
 
-    /* "fast_similarity.pyx":55
+    /* "fast_similarity.pyx":56
  *     features.value = <double *>malloc(sizeof(double) * num_features)
  *     if not features.index or not features.value:
  *         raise MemoryError()             # <<<<<<<<<<<<<<
  *     features.size = num_features
  *     for i in range(num_features):
  */
-    PyErr_NoMemory(); __PYX_ERR(0, 55, __pyx_L1_error)
+    PyErr_NoMemory(); __PYX_ERR(0, 56, __pyx_L1_error)
 
-    /* "fast_similarity.pyx":54
+    /* "fast_similarity.pyx":55
  *                                                 num_features)
  *     features.value = <double *>malloc(sizeof(double) * num_features)
  *     if not features.index or not features.value:             # <<<<<<<<<<<<<<
@@ -1524,7 +1550,7 @@ static struct __pyx_t_15fast_similarity_FeatureVector *__pyx_f_15fast_similarity
  */
   }
 
-  /* "fast_similarity.pyx":56
+  /* "fast_similarity.pyx":57
  *     if not features.index or not features.value:
  *         raise MemoryError()
  *     features.size = num_features             # <<<<<<<<<<<<<<
@@ -1533,7 +1559,7 @@ static struct __pyx_t_15fast_similarity_FeatureVector *__pyx_f_15fast_similarity
  */
   __pyx_v_features->size = __pyx_v_num_features;
 
-  /* "fast_similarity.pyx":57
+  /* "fast_similarity.pyx":58
  *         raise MemoryError()
  *     features.size = num_features
  *     for i in range(num_features):             # <<<<<<<<<<<<<<
@@ -1544,19 +1570,19 @@ static struct __pyx_t_15fast_similarity_FeatureVector *__pyx_f_15fast_similarity
   for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
     __pyx_v_i = __pyx_t_8;
 
-    /* "fast_similarity.pyx":58
+    /* "fast_similarity.pyx":59
  *     features.size = num_features
  *     for i in range(num_features):
  *         index, feature_val = feature_strings[i].split(':')             # <<<<<<<<<<<<<<
  *         features.index[i] = strtoul(index, &tmp, 10)
  *         features.value[i] = strtod(feature_val, &tmp)
  */
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_feature_strings, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_feature_strings, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_split); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
@@ -1569,7 +1595,7 @@ static struct __pyx_t_15fast_similarity_FeatureVector *__pyx_f_15fast_similarity
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 58, __pyx_L1_error)
+        __PYX_ERR(0, 59, __pyx_L1_error)
       }
       #if CYTHON_COMPILING_IN_CPYTHON
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -1582,15 +1608,15 @@ static struct __pyx_t_15fast_similarity_FeatureVector *__pyx_f_15fast_similarity
       __Pyx_INCREF(__pyx_t_2);
       __Pyx_INCREF(__pyx_t_3);
       #else
-      __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
+      __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 58, __pyx_L1_error)
+      __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 59, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       #endif
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_9 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 58, __pyx_L1_error)
+      __pyx_t_9 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 59, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_10 = Py_TYPE(__pyx_t_9)->tp_iternext;
@@ -1598,7 +1624,7 @@ static struct __pyx_t_15fast_similarity_FeatureVector *__pyx_f_15fast_similarity
       __Pyx_GOTREF(__pyx_t_2);
       index = 1; __pyx_t_3 = __pyx_t_10(__pyx_t_9); if (unlikely(!__pyx_t_3)) goto __pyx_L9_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_3);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_10(__pyx_t_9), 2) < 0) __PYX_ERR(0, 58, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_10(__pyx_t_9), 2) < 0) __PYX_ERR(0, 59, __pyx_L1_error)
       __pyx_t_10 = NULL;
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       goto __pyx_L10_unpacking_done;
@@ -1606,38 +1632,38 @@ static struct __pyx_t_15fast_similarity_FeatureVector *__pyx_f_15fast_similarity
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       __pyx_t_10 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 58, __pyx_L1_error)
+      __PYX_ERR(0, 59, __pyx_L1_error)
       __pyx_L10_unpacking_done:;
     }
-    if (!(likely(PyBytes_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 58, __pyx_L1_error)
-    if (!(likely(PyBytes_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_3)->tp_name), 0))) __PYX_ERR(0, 58, __pyx_L1_error)
+    if (!(likely(PyBytes_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 59, __pyx_L1_error)
+    if (!(likely(PyBytes_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_3)->tp_name), 0))) __PYX_ERR(0, 59, __pyx_L1_error)
     __Pyx_XDECREF_SET(__pyx_v_index, ((PyObject*)__pyx_t_2));
     __pyx_t_2 = 0;
     __Pyx_XDECREF_SET(__pyx_v_feature_val, ((PyObject*)__pyx_t_3));
     __pyx_t_3 = 0;
 
-    /* "fast_similarity.pyx":59
+    /* "fast_similarity.pyx":60
  *     for i in range(num_features):
  *         index, feature_val = feature_strings[i].split(':')
  *         features.index[i] = strtoul(index, &tmp, 10)             # <<<<<<<<<<<<<<
  *         features.value[i] = strtod(feature_val, &tmp)
  *     return features
  */
-    __pyx_t_11 = __Pyx_PyObject_AsString(__pyx_v_index); if (unlikely((!__pyx_t_11) && PyErr_Occurred())) __PYX_ERR(0, 59, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_AsString(__pyx_v_index); if (unlikely((!__pyx_t_11) && PyErr_Occurred())) __PYX_ERR(0, 60, __pyx_L1_error)
     (__pyx_v_features->index[__pyx_v_i]) = strtoul(__pyx_t_11, (&__pyx_v_tmp), 10);
 
-    /* "fast_similarity.pyx":60
+    /* "fast_similarity.pyx":61
  *         index, feature_val = feature_strings[i].split(':')
  *         features.index[i] = strtoul(index, &tmp, 10)
  *         features.value[i] = strtod(feature_val, &tmp)             # <<<<<<<<<<<<<<
  *     return features
  * 
  */
-    __pyx_t_12 = __Pyx_PyObject_AsString(__pyx_v_feature_val); if (unlikely((!__pyx_t_12) && PyErr_Occurred())) __PYX_ERR(0, 60, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_AsString(__pyx_v_feature_val); if (unlikely((!__pyx_t_12) && PyErr_Occurred())) __PYX_ERR(0, 61, __pyx_L1_error)
     (__pyx_v_features->value[__pyx_v_i]) = strtod(__pyx_t_12, (&__pyx_v_tmp));
   }
 
-  /* "fast_similarity.pyx":61
+  /* "fast_similarity.pyx":62
  *         features.index[i] = strtoul(index, &tmp, 10)
  *         features.value[i] = strtod(feature_val, &tmp)
  *     return features             # <<<<<<<<<<<<<<
@@ -1647,7 +1673,7 @@ static struct __pyx_t_15fast_similarity_FeatureVector *__pyx_f_15fast_similarity
   __pyx_r = __pyx_v_features;
   goto __pyx_L0;
 
-  /* "fast_similarity.pyx":36
+  /* "fast_similarity.pyx":37
  * 
  * 
  * cdef FeatureVector * parseVector(bytes vector_string):             # <<<<<<<<<<<<<<
@@ -1671,7 +1697,7 @@ static struct __pyx_t_15fast_similarity_FeatureVector *__pyx_f_15fast_similarity
   return __pyx_r;
 }
 
-/* "fast_similarity.pyx":64
+/* "fast_similarity.pyx":65
  * 
  * 
  * cdef DataSet * getAllVectors(str filename):             # <<<<<<<<<<<<<<
@@ -1705,7 +1731,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
   Py_ssize_t __pyx_t_13;
   __Pyx_RefNannySetupContext("getAllVectors", 0);
 
-  /* "fast_similarity.pyx":70
+  /* "fast_similarity.pyx":71
  *     batch.
  *     """
  *     cdef DataSet * all_vectors = <DataSet *>malloc(sizeof(DataSet))             # <<<<<<<<<<<<<<
@@ -1714,7 +1740,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
  */
   __pyx_v_all_vectors = ((struct __pyx_t_15fast_similarity_DataSet *)malloc((sizeof(struct __pyx_t_15fast_similarity_DataSet))));
 
-  /* "fast_similarity.pyx":71
+  /* "fast_similarity.pyx":72
  *     """
  *     cdef DataSet * all_vectors = <DataSet *>malloc(sizeof(DataSet))
  *     if not all_vectors:             # <<<<<<<<<<<<<<
@@ -1724,16 +1750,16 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
   __pyx_t_1 = ((!(__pyx_v_all_vectors != 0)) != 0);
   if (__pyx_t_1) {
 
-    /* "fast_similarity.pyx":72
+    /* "fast_similarity.pyx":73
  *     cdef DataSet * all_vectors = <DataSet *>malloc(sizeof(DataSet))
  *     if not all_vectors:
  *         raise MemoryError()             # <<<<<<<<<<<<<<
  *     cdef bytes vector_string
  *     cdef ULong batch_size = 1000
  */
-    PyErr_NoMemory(); __PYX_ERR(0, 72, __pyx_L1_error)
+    PyErr_NoMemory(); __PYX_ERR(0, 73, __pyx_L1_error)
 
-    /* "fast_similarity.pyx":71
+    /* "fast_similarity.pyx":72
  *     """
  *     cdef DataSet * all_vectors = <DataSet *>malloc(sizeof(DataSet))
  *     if not all_vectors:             # <<<<<<<<<<<<<<
@@ -1742,7 +1768,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
  */
   }
 
-  /* "fast_similarity.pyx":74
+  /* "fast_similarity.pyx":75
  *         raise MemoryError()
  *     cdef bytes vector_string
  *     cdef ULong batch_size = 1000             # <<<<<<<<<<<<<<
@@ -1751,7 +1777,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
  */
   __pyx_v_batch_size = 0x3E8;
 
-  /* "fast_similarity.pyx":75
+  /* "fast_similarity.pyx":76
  *     cdef bytes vector_string
  *     cdef ULong batch_size = 1000
  *     cdef ULong batch_counter = 0             # <<<<<<<<<<<<<<
@@ -1760,7 +1786,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
  */
   __pyx_v_batch_counter = 0;
 
-  /* "fast_similarity.pyx":78
+  /* "fast_similarity.pyx":79
  *     # Initial allocation for dataset
  *     # The pointer needs to be null for realloc to not bork
  *     all_vectors.features = NULL             # <<<<<<<<<<<<<<
@@ -1769,7 +1795,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
  */
   __pyx_v_all_vectors->features = NULL;
 
-  /* "fast_similarity.pyx":79
+  /* "fast_similarity.pyx":80
  *     # The pointer needs to be null for realloc to not bork
  *     all_vectors.features = NULL
  *     all_vectors.size = 0             # <<<<<<<<<<<<<<
@@ -1778,14 +1804,14 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
  */
   __pyx_v_all_vectors->size = 0;
 
-  /* "fast_similarity.pyx":80
+  /* "fast_similarity.pyx":81
  *     all_vectors.features = NULL
  *     all_vectors.size = 0
  *     file_reader = fileIter(filename)             # <<<<<<<<<<<<<<
  *     cdef bint end_of_file = 0
  *     while not end_of_file:
  */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_fileIter); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_fileIter); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -1798,16 +1824,16 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
     }
   }
   if (!__pyx_t_4) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_filename); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_filename); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 81, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
   } else {
-    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 80, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 81, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __pyx_t_4 = NULL;
     __Pyx_INCREF(__pyx_v_filename);
     __Pyx_GIVEREF(__pyx_v_filename);
     PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_v_filename);
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 81, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
@@ -1815,7 +1841,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
   __pyx_v_file_reader = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "fast_similarity.pyx":81
+  /* "fast_similarity.pyx":82
  *     all_vectors.size = 0
  *     file_reader = fileIter(filename)
  *     cdef bint end_of_file = 0             # <<<<<<<<<<<<<<
@@ -1824,7 +1850,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
  */
   __pyx_v_end_of_file = 0;
 
-  /* "fast_similarity.pyx":82
+  /* "fast_similarity.pyx":83
  *     file_reader = fileIter(filename)
  *     cdef bint end_of_file = 0
  *     while not end_of_file:             # <<<<<<<<<<<<<<
@@ -1835,7 +1861,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
     __pyx_t_1 = ((!(__pyx_v_end_of_file != 0)) != 0);
     if (!__pyx_t_1) break;
 
-    /* "fast_similarity.pyx":83
+    /* "fast_similarity.pyx":84
  *     cdef bint end_of_file = 0
  *     while not end_of_file:
  *         batch_counter += 1             # <<<<<<<<<<<<<<
@@ -1844,7 +1870,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
  */
     __pyx_v_batch_counter = (__pyx_v_batch_counter + 1);
 
-    /* "fast_similarity.pyx":84
+    /* "fast_similarity.pyx":85
  *     while not end_of_file:
  *         batch_counter += 1
  *         all_vectors.features = <FeatureVector *>realloc(             # <<<<<<<<<<<<<<
@@ -1853,7 +1879,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
  */
     __pyx_v_all_vectors->features = ((struct __pyx_t_15fast_similarity_FeatureVector *)realloc(__pyx_v_all_vectors->features, (((sizeof(struct __pyx_t_15fast_similarity_FeatureVector)) * __pyx_v_batch_size) * __pyx_v_batch_counter)));
 
-    /* "fast_similarity.pyx":88
+    /* "fast_similarity.pyx":89
  *             sizeof(FeatureVector) * batch_size * batch_counter
  *         )
  *         if not all_vectors.features:             # <<<<<<<<<<<<<<
@@ -1863,25 +1889,25 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
     __pyx_t_1 = ((!(__pyx_v_all_vectors->features != 0)) != 0);
     if (__pyx_t_1) {
 
-      /* "fast_similarity.pyx":89
+      /* "fast_similarity.pyx":90
  *         )
  *         if not all_vectors.features:
  *             print "Ran out of memory while reading all vectors"             # <<<<<<<<<<<<<<
  *             raise MemoryError()
  *         for i in range(batch_size):
  */
-      if (__Pyx_PrintOne(0, __pyx_kp_s_Ran_out_of_memory_while_reading) < 0) __PYX_ERR(0, 89, __pyx_L1_error)
+      if (__Pyx_PrintOne(0, __pyx_kp_s_Ran_out_of_memory_while_reading) < 0) __PYX_ERR(0, 90, __pyx_L1_error)
 
-      /* "fast_similarity.pyx":90
+      /* "fast_similarity.pyx":91
  *         if not all_vectors.features:
  *             print "Ran out of memory while reading all vectors"
  *             raise MemoryError()             # <<<<<<<<<<<<<<
  *         for i in range(batch_size):
  *             try:
  */
-      PyErr_NoMemory(); __PYX_ERR(0, 90, __pyx_L1_error)
+      PyErr_NoMemory(); __PYX_ERR(0, 91, __pyx_L1_error)
 
-      /* "fast_similarity.pyx":88
+      /* "fast_similarity.pyx":89
  *             sizeof(FeatureVector) * batch_size * batch_counter
  *         )
  *         if not all_vectors.features:             # <<<<<<<<<<<<<<
@@ -1890,30 +1916,30 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
  */
     }
 
-    /* "fast_similarity.pyx":91
+    /* "fast_similarity.pyx":92
  *             print "Ran out of memory while reading all vectors"
  *             raise MemoryError()
  *         for i in range(batch_size):             # <<<<<<<<<<<<<<
  *             try:
  *                 vector_string = file_reader.next()
  */
-    __pyx_t_2 = __Pyx_PyInt_From_unsigned_long(__pyx_v_batch_size); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_From_unsigned_long(__pyx_v_batch_size); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 92, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_GIVEREF(__pyx_t_2);
     PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
     __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (likely(PyList_CheckExact(__pyx_t_2)) || PyTuple_CheckExact(__pyx_t_2)) {
       __pyx_t_3 = __pyx_t_2; __Pyx_INCREF(__pyx_t_3); __pyx_t_6 = 0;
       __pyx_t_7 = NULL;
     } else {
-      __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
+      __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 92, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 91, __pyx_L1_error)
+      __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 92, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     for (;;) {
@@ -1921,17 +1947,17 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
         if (likely(PyList_CheckExact(__pyx_t_3))) {
           if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_3)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_2 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_2); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 91, __pyx_L1_error)
+          __pyx_t_2 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_2); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 92, __pyx_L1_error)
           #else
-          __pyx_t_2 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
+          __pyx_t_2 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           #endif
         } else {
           if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
           #if CYTHON_COMPILING_IN_CPYTHON
-          __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_2); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 91, __pyx_L1_error)
+          __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_2); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 92, __pyx_L1_error)
           #else
-          __pyx_t_2 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
+          __pyx_t_2 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           #endif
         }
@@ -1941,7 +1967,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 91, __pyx_L1_error)
+            else __PYX_ERR(0, 92, __pyx_L1_error)
           }
           break;
         }
@@ -1950,7 +1976,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
       __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "fast_similarity.pyx":92
+      /* "fast_similarity.pyx":93
  *             raise MemoryError()
  *         for i in range(batch_size):
  *             try:             # <<<<<<<<<<<<<<
@@ -1966,14 +1992,14 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
         __Pyx_XGOTREF(__pyx_t_10);
         /*try:*/ {
 
-          /* "fast_similarity.pyx":93
+          /* "fast_similarity.pyx":94
  *         for i in range(batch_size):
  *             try:
  *                 vector_string = file_reader.next()             # <<<<<<<<<<<<<<
  *             except StopIteration:
  *                 batch_size = i
  */
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_file_reader, __pyx_n_s_next); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 93, __pyx_L9_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_file_reader, __pyx_n_s_next); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 94, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_5);
           __pyx_t_4 = NULL;
           if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_5))) {
@@ -1986,18 +2012,18 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
             }
           }
           if (__pyx_t_4) {
-            __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 93, __pyx_L9_error)
+            __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L9_error)
             __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           } else {
-            __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 93, __pyx_L9_error)
+            __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L9_error)
           }
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-          if (!(likely(PyBytes_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 93, __pyx_L9_error)
+          if (!(likely(PyBytes_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "bytes", Py_TYPE(__pyx_t_2)->tp_name), 0))) __PYX_ERR(0, 94, __pyx_L9_error)
           __Pyx_XDECREF_SET(__pyx_v_vector_string, ((PyObject*)__pyx_t_2));
           __pyx_t_2 = 0;
 
-          /* "fast_similarity.pyx":92
+          /* "fast_similarity.pyx":93
  *             raise MemoryError()
  *         for i in range(batch_size):
  *             try:             # <<<<<<<<<<<<<<
@@ -2015,7 +2041,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "fast_similarity.pyx":94
+        /* "fast_similarity.pyx":95
  *             try:
  *                 vector_string = file_reader.next()
  *             except StopIteration:             # <<<<<<<<<<<<<<
@@ -2025,22 +2051,22 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
         __pyx_t_11 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_StopIteration);
         if (__pyx_t_11) {
           __Pyx_AddTraceback("fast_similarity.getAllVectors", __pyx_clineno, __pyx_lineno, __pyx_filename);
-          if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_5, &__pyx_t_4) < 0) __PYX_ERR(0, 94, __pyx_L11_except_error)
+          if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_5, &__pyx_t_4) < 0) __PYX_ERR(0, 95, __pyx_L11_except_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_GOTREF(__pyx_t_5);
           __Pyx_GOTREF(__pyx_t_4);
 
-          /* "fast_similarity.pyx":95
+          /* "fast_similarity.pyx":96
  *                 vector_string = file_reader.next()
  *             except StopIteration:
  *                 batch_size = i             # <<<<<<<<<<<<<<
  *                 end_of_file = 1
  *                 break
  */
-          __pyx_t_12 = __Pyx_PyInt_As_unsigned_long(__pyx_v_i); if (unlikely((__pyx_t_12 == (unsigned long)-1) && PyErr_Occurred())) __PYX_ERR(0, 95, __pyx_L11_except_error)
+          __pyx_t_12 = __Pyx_PyInt_As_unsigned_long(__pyx_v_i); if (unlikely((__pyx_t_12 == (unsigned long)-1) && PyErr_Occurred())) __PYX_ERR(0, 96, __pyx_L11_except_error)
           __pyx_v_batch_size = __pyx_t_12;
 
-          /* "fast_similarity.pyx":96
+          /* "fast_similarity.pyx":97
  *             except StopIteration:
  *                 batch_size = i
  *                 end_of_file = 1             # <<<<<<<<<<<<<<
@@ -2049,7 +2075,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
  */
           __pyx_v_end_of_file = 1;
 
-          /* "fast_similarity.pyx":97
+          /* "fast_similarity.pyx":98
  *                 batch_size = i
  *                 end_of_file = 1
  *                 break             # <<<<<<<<<<<<<<
@@ -2066,7 +2092,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
         goto __pyx_L11_except_error;
         __pyx_L11_except_error:;
 
-        /* "fast_similarity.pyx":92
+        /* "fast_similarity.pyx":93
  *             raise MemoryError()
  *         for i in range(batch_size):
  *             try:             # <<<<<<<<<<<<<<
@@ -2089,32 +2115,32 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
         __pyx_L16_try_end:;
       }
 
-      /* "fast_similarity.pyx":98
+      /* "fast_similarity.pyx":99
  *                 end_of_file = 1
  *                 break
  *             vector_index = (batch_counter - 1) * batch_size + i             # <<<<<<<<<<<<<<
  *             all_vectors.features[vector_index] = parseVector(vector_string)[0]
  *         all_vectors.size += batch_size
  */
-      __pyx_t_4 = __Pyx_PyInt_From_unsigned_long(((__pyx_v_batch_counter - 1) * __pyx_v_batch_size)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 98, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyInt_From_unsigned_long(((__pyx_v_batch_counter - 1) * __pyx_v_batch_size)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 99, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_5 = PyNumber_Add(__pyx_t_4, __pyx_v_i); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 98, __pyx_L1_error)
+      __pyx_t_5 = PyNumber_Add(__pyx_t_4, __pyx_v_i); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 99, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_XDECREF_SET(__pyx_v_vector_index, __pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "fast_similarity.pyx":99
+      /* "fast_similarity.pyx":100
  *                 break
  *             vector_index = (batch_counter - 1) * batch_size + i
  *             all_vectors.features[vector_index] = parseVector(vector_string)[0]             # <<<<<<<<<<<<<<
  *         all_vectors.size += batch_size
  *     return all_vectors
  */
-      __pyx_t_13 = __Pyx_PyIndex_AsSsize_t(__pyx_v_vector_index); if (unlikely((__pyx_t_13 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 99, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyIndex_AsSsize_t(__pyx_v_vector_index); if (unlikely((__pyx_t_13 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 100, __pyx_L1_error)
       (__pyx_v_all_vectors->features[__pyx_t_13]) = (__pyx_f_15fast_similarity_parseVector(__pyx_v_vector_string)[0]);
 
-      /* "fast_similarity.pyx":91
+      /* "fast_similarity.pyx":92
  *             print "Ran out of memory while reading all vectors"
  *             raise MemoryError()
  *         for i in range(batch_size):             # <<<<<<<<<<<<<<
@@ -2125,7 +2151,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
     __pyx_L8_break:;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "fast_similarity.pyx":100
+    /* "fast_similarity.pyx":101
  *             vector_index = (batch_counter - 1) * batch_size + i
  *             all_vectors.features[vector_index] = parseVector(vector_string)[0]
  *         all_vectors.size += batch_size             # <<<<<<<<<<<<<<
@@ -2135,7 +2161,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
     __pyx_v_all_vectors->size = (__pyx_v_all_vectors->size + __pyx_v_batch_size);
   }
 
-  /* "fast_similarity.pyx":101
+  /* "fast_similarity.pyx":102
  *             all_vectors.features[vector_index] = parseVector(vector_string)[0]
  *         all_vectors.size += batch_size
  *     return all_vectors             # <<<<<<<<<<<<<<
@@ -2145,7 +2171,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
   __pyx_r = __pyx_v_all_vectors;
   goto __pyx_L0;
 
-  /* "fast_similarity.pyx":64
+  /* "fast_similarity.pyx":65
  * 
  * 
  * cdef DataSet * getAllVectors(str filename):             # <<<<<<<<<<<<<<
@@ -2170,7 +2196,7 @@ static struct __pyx_t_15fast_similarity_DataSet *__pyx_f_15fast_similarity_getAl
   return __pyx_r;
 }
 
-/* "fast_similarity.pyx":104
+/* "fast_similarity.pyx":105
  * 
  * 
  * cdef double getVectorLength(FeatureVector * vector) nogil:             # <<<<<<<<<<<<<<
@@ -2185,7 +2211,7 @@ static double __pyx_f_15fast_similarity_getVectorLength(struct __pyx_t_15fast_si
   int __pyx_t_1;
   int __pyx_t_2;
 
-  /* "fast_similarity.pyx":105
+  /* "fast_similarity.pyx":106
  * 
  * cdef double getVectorLength(FeatureVector * vector) nogil:
  *     cdef double v_length = 0.0             # <<<<<<<<<<<<<<
@@ -2194,7 +2220,7 @@ static double __pyx_f_15fast_similarity_getVectorLength(struct __pyx_t_15fast_si
  */
   __pyx_v_v_length = 0.0;
 
-  /* "fast_similarity.pyx":107
+  /* "fast_similarity.pyx":108
  *     cdef double v_length = 0.0
  *     cdef int idx
  *     for idx in range(vector.size):             # <<<<<<<<<<<<<<
@@ -2205,7 +2231,7 @@ static double __pyx_f_15fast_similarity_getVectorLength(struct __pyx_t_15fast_si
   for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_idx = __pyx_t_2;
 
-    /* "fast_similarity.pyx":108
+    /* "fast_similarity.pyx":109
  *     cdef int idx
  *     for idx in range(vector.size):
  *         v_length += pow(vector.value[idx], 2)             # <<<<<<<<<<<<<<
@@ -2215,7 +2241,7 @@ static double __pyx_f_15fast_similarity_getVectorLength(struct __pyx_t_15fast_si
     __pyx_v_v_length = (__pyx_v_v_length + pow((__pyx_v_vector->value[__pyx_v_idx]), 2.0));
   }
 
-  /* "fast_similarity.pyx":109
+  /* "fast_similarity.pyx":110
  *     for idx in range(vector.size):
  *         v_length += pow(vector.value[idx], 2)
  *     return sqrt(v_length)             # <<<<<<<<<<<<<<
@@ -2225,7 +2251,7 @@ static double __pyx_f_15fast_similarity_getVectorLength(struct __pyx_t_15fast_si
   __pyx_r = sqrt(__pyx_v_v_length);
   goto __pyx_L0;
 
-  /* "fast_similarity.pyx":104
+  /* "fast_similarity.pyx":105
  * 
  * 
  * cdef double getVectorLength(FeatureVector * vector) nogil:             # <<<<<<<<<<<<<<
@@ -2238,7 +2264,7 @@ static double __pyx_f_15fast_similarity_getVectorLength(struct __pyx_t_15fast_si
   return __pyx_r;
 }
 
-/* "fast_similarity.pyx":112
+/* "fast_similarity.pyx":113
  * 
  * 
  * cdef double getSimilarity(FeatureVector * vector1, FeatureVector * vector2) nogil:             # <<<<<<<<<<<<<<
@@ -2260,7 +2286,7 @@ static double __pyx_f_15fast_similarity_getSimilarity(struct __pyx_t_15fast_simi
   int __pyx_t_7;
   double __pyx_t_8;
 
-  /* "fast_similarity.pyx":113
+  /* "fast_similarity.pyx":114
  * 
  * cdef double getSimilarity(FeatureVector * vector1, FeatureVector * vector2) nogil:
  *     if vector1.size > vector2.size:             # <<<<<<<<<<<<<<
@@ -2270,7 +2296,7 @@ static double __pyx_f_15fast_similarity_getSimilarity(struct __pyx_t_15fast_simi
   __pyx_t_1 = ((__pyx_v_vector1->size > __pyx_v_vector2->size) != 0);
   if (__pyx_t_1) {
 
-    /* "fast_similarity.pyx":114
+    /* "fast_similarity.pyx":115
  * cdef double getSimilarity(FeatureVector * vector1, FeatureVector * vector2) nogil:
  *     if vector1.size > vector2.size:
  *         vector1, vector2 = vector2, vector1             # <<<<<<<<<<<<<<
@@ -2282,7 +2308,7 @@ static double __pyx_f_15fast_similarity_getSimilarity(struct __pyx_t_15fast_simi
     __pyx_v_vector1 = __pyx_t_2;
     __pyx_v_vector2 = __pyx_t_3;
 
-    /* "fast_similarity.pyx":113
+    /* "fast_similarity.pyx":114
  * 
  * cdef double getSimilarity(FeatureVector * vector1, FeatureVector * vector2) nogil:
  *     if vector1.size > vector2.size:             # <<<<<<<<<<<<<<
@@ -2291,7 +2317,7 @@ static double __pyx_f_15fast_similarity_getSimilarity(struct __pyx_t_15fast_simi
  */
   }
 
-  /* "fast_similarity.pyx":116
+  /* "fast_similarity.pyx":117
  *         vector1, vector2 = vector2, vector1
  * 
  *     cdef double dot_prod = 0.0             # <<<<<<<<<<<<<<
@@ -2300,7 +2326,7 @@ static double __pyx_f_15fast_similarity_getSimilarity(struct __pyx_t_15fast_simi
  */
   __pyx_v_dot_prod = 0.0;
 
-  /* "fast_similarity.pyx":118
+  /* "fast_similarity.pyx":119
  *     cdef double dot_prod = 0.0
  *     cdef int v1_idx, v2_idx
  *     for v1_idx in range(vector1.size):             # <<<<<<<<<<<<<<
@@ -2311,7 +2337,7 @@ static double __pyx_f_15fast_similarity_getSimilarity(struct __pyx_t_15fast_simi
   for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
     __pyx_v_v1_idx = __pyx_t_5;
 
-    /* "fast_similarity.pyx":119
+    /* "fast_similarity.pyx":120
  *     cdef int v1_idx, v2_idx
  *     for v1_idx in range(vector1.size):
  *         for v2_idx in range(vector2.size):             # <<<<<<<<<<<<<<
@@ -2322,7 +2348,7 @@ static double __pyx_f_15fast_similarity_getSimilarity(struct __pyx_t_15fast_simi
     for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
       __pyx_v_v2_idx = __pyx_t_7;
 
-      /* "fast_similarity.pyx":120
+      /* "fast_similarity.pyx":121
  *     for v1_idx in range(vector1.size):
  *         for v2_idx in range(vector2.size):
  *             if vector2.index[v2_idx] == vector1.index[v1_idx]:             # <<<<<<<<<<<<<<
@@ -2332,7 +2358,7 @@ static double __pyx_f_15fast_similarity_getSimilarity(struct __pyx_t_15fast_simi
       __pyx_t_1 = (((__pyx_v_vector2->index[__pyx_v_v2_idx]) == (__pyx_v_vector1->index[__pyx_v_v1_idx])) != 0);
       if (__pyx_t_1) {
 
-        /* "fast_similarity.pyx":121
+        /* "fast_similarity.pyx":122
  *         for v2_idx in range(vector2.size):
  *             if vector2.index[v2_idx] == vector1.index[v1_idx]:
  *                 dot_prod += vector1.value[v1_idx] * vector2.value[v2_idx]             # <<<<<<<<<<<<<<
@@ -2341,7 +2367,7 @@ static double __pyx_f_15fast_similarity_getSimilarity(struct __pyx_t_15fast_simi
  */
         __pyx_v_dot_prod = (__pyx_v_dot_prod + ((__pyx_v_vector1->value[__pyx_v_v1_idx]) * (__pyx_v_vector2->value[__pyx_v_v2_idx])));
 
-        /* "fast_similarity.pyx":122
+        /* "fast_similarity.pyx":123
  *             if vector2.index[v2_idx] == vector1.index[v1_idx]:
  *                 dot_prod += vector1.value[v1_idx] * vector2.value[v2_idx]
  *                 break             # <<<<<<<<<<<<<<
@@ -2350,7 +2376,7 @@ static double __pyx_f_15fast_similarity_getSimilarity(struct __pyx_t_15fast_simi
  */
         goto __pyx_L7_break;
 
-        /* "fast_similarity.pyx":120
+        /* "fast_similarity.pyx":121
  *     for v1_idx in range(vector1.size):
  *         for v2_idx in range(vector2.size):
  *             if vector2.index[v2_idx] == vector1.index[v1_idx]:             # <<<<<<<<<<<<<<
@@ -2362,7 +2388,7 @@ static double __pyx_f_15fast_similarity_getSimilarity(struct __pyx_t_15fast_simi
     __pyx_L7_break:;
   }
 
-  /* "fast_similarity.pyx":123
+  /* "fast_similarity.pyx":124
  *                 dot_prod += vector1.value[v1_idx] * vector2.value[v2_idx]
  *                 break
  *     return dot_prod / (getVectorLength(vector1) * getVectorLength(vector2))             # <<<<<<<<<<<<<<
@@ -2378,12 +2404,12 @@ static double __pyx_f_15fast_similarity_getSimilarity(struct __pyx_t_15fast_simi
     #ifdef WITH_THREAD
     PyGILState_Release(__pyx_gilstate_save);
     #endif
-    __PYX_ERR(0, 123, __pyx_L1_error)
+    __PYX_ERR(0, 124, __pyx_L1_error)
   }
   __pyx_r = (__pyx_v_dot_prod / __pyx_t_8);
   goto __pyx_L0;
 
-  /* "fast_similarity.pyx":112
+  /* "fast_similarity.pyx":113
  * 
  * 
  * cdef double getSimilarity(FeatureVector * vector1, FeatureVector * vector2) nogil:             # <<<<<<<<<<<<<<
@@ -2399,7 +2425,7 @@ static double __pyx_f_15fast_similarity_getSimilarity(struct __pyx_t_15fast_simi
   return __pyx_r;
 }
 
-/* "fast_similarity.pyx":126
+/* "fast_similarity.pyx":127
  * 
  * 
  * cdef Similarity * buildSimilarityMatrix(DataSet * all_vectors):             # <<<<<<<<<<<<<<
@@ -2408,32 +2434,32 @@ static double __pyx_f_15fast_similarity_getSimilarity(struct __pyx_t_15fast_simi
  */
 
 static struct __pyx_t_15fast_similarity_Similarity *__pyx_f_15fast_similarity_buildSimilarityMatrix(struct __pyx_t_15fast_similarity_DataSet *__pyx_v_all_vectors) {
-  __pyx_t_15fast_similarity_ULong __pyx_v_i;
-  __pyx_t_15fast_similarity_ULong __pyx_v_j;
-  __pyx_t_15fast_similarity_ULong __pyx_v_num_entries;
+  __pyx_t_15fast_similarity_LLong __pyx_v_i;
+  __pyx_t_15fast_similarity_LLong __pyx_v_j;
+  __pyx_t_15fast_similarity_LLong __pyx_v_num_entries;
   struct __pyx_t_15fast_similarity_Similarity *__pyx_v_sim_matrix;
-  __pyx_t_15fast_similarity_ULong __pyx_v_counter;
+  __pyx_t_15fast_similarity_LLong __pyx_v_counter;
   struct __pyx_t_15fast_similarity_Similarity *__pyx_r;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __pyx_t_15fast_similarity_ULong __pyx_t_2;
-  __pyx_t_15fast_similarity_ULong __pyx_t_3;
-  __pyx_t_15fast_similarity_ULong __pyx_t_4;
+  __pyx_t_15fast_similarity_LLong __pyx_t_3;
+  __pyx_t_15fast_similarity_LLong __pyx_t_4;
   __pyx_t_15fast_similarity_ULong __pyx_t_5;
-  __pyx_t_15fast_similarity_ULong __pyx_t_6;
+  __pyx_t_15fast_similarity_LLong __pyx_t_6;
   __Pyx_RefNannySetupContext("buildSimilarityMatrix", 0);
 
-  /* "fast_similarity.pyx":133
- *     cdef ULong i, j
+  /* "fast_similarity.pyx":146
+ *     cdef LLong i, j
  *     cdef bytes matrix_key
- *     cdef ULong num_entries = <ULong>((pow(all_vectors.size, 2) -             # <<<<<<<<<<<<<<
+ *     cdef LLong num_entries = <LLong>((pow(all_vectors.size, 2) -             # <<<<<<<<<<<<<<
  *                                       all_vectors.size) / 2)
  *     cdef Similarity * sim_matrix = <Similarity *>malloc(sizeof(Similarity))
  */
-  __pyx_v_num_entries = ((__pyx_t_15fast_similarity_ULong)((pow(__pyx_v_all_vectors->size, 2.0) - __pyx_v_all_vectors->size) / 2.0));
+  __pyx_v_num_entries = ((__pyx_t_15fast_similarity_LLong)((pow(__pyx_v_all_vectors->size, 2.0) - __pyx_v_all_vectors->size) / 2.0));
 
-  /* "fast_similarity.pyx":135
- *     cdef ULong num_entries = <ULong>((pow(all_vectors.size, 2) -
+  /* "fast_similarity.pyx":148
+ *     cdef LLong num_entries = <LLong>((pow(all_vectors.size, 2) -
  *                                       all_vectors.size) / 2)
  *     cdef Similarity * sim_matrix = <Similarity *>malloc(sizeof(Similarity))             # <<<<<<<<<<<<<<
  *     if not sim_matrix:
@@ -2441,7 +2467,7 @@ static struct __pyx_t_15fast_similarity_Similarity *__pyx_f_15fast_similarity_bu
  */
   __pyx_v_sim_matrix = ((struct __pyx_t_15fast_similarity_Similarity *)malloc((sizeof(struct __pyx_t_15fast_similarity_Similarity))));
 
-  /* "fast_similarity.pyx":136
+  /* "fast_similarity.pyx":149
  *                                       all_vectors.size) / 2)
  *     cdef Similarity * sim_matrix = <Similarity *>malloc(sizeof(Similarity))
  *     if not sim_matrix:             # <<<<<<<<<<<<<<
@@ -2451,16 +2477,16 @@ static struct __pyx_t_15fast_similarity_Similarity *__pyx_f_15fast_similarity_bu
   __pyx_t_1 = ((!(__pyx_v_sim_matrix != 0)) != 0);
   if (__pyx_t_1) {
 
-    /* "fast_similarity.pyx":137
+    /* "fast_similarity.pyx":150
  *     cdef Similarity * sim_matrix = <Similarity *>malloc(sizeof(Similarity))
  *     if not sim_matrix:
  *         raise MemoryError()             # <<<<<<<<<<<<<<
  *     sim_matrix.value = <double *>malloc(sizeof(double) * num_entries)
  *     sim_matrix.size = num_entries
  */
-    PyErr_NoMemory(); __PYX_ERR(0, 137, __pyx_L1_error)
+    PyErr_NoMemory(); __PYX_ERR(0, 150, __pyx_L1_error)
 
-    /* "fast_similarity.pyx":136
+    /* "fast_similarity.pyx":149
  *                                       all_vectors.size) / 2)
  *     cdef Similarity * sim_matrix = <Similarity *>malloc(sizeof(Similarity))
  *     if not sim_matrix:             # <<<<<<<<<<<<<<
@@ -2469,7 +2495,7 @@ static struct __pyx_t_15fast_similarity_Similarity *__pyx_f_15fast_similarity_bu
  */
   }
 
-  /* "fast_similarity.pyx":138
+  /* "fast_similarity.pyx":151
  *     if not sim_matrix:
  *         raise MemoryError()
  *     sim_matrix.value = <double *>malloc(sizeof(double) * num_entries)             # <<<<<<<<<<<<<<
@@ -2478,7 +2504,7 @@ static struct __pyx_t_15fast_similarity_Similarity *__pyx_f_15fast_similarity_bu
  */
   __pyx_v_sim_matrix->value = ((double *)malloc(((sizeof(double)) * __pyx_v_num_entries)));
 
-  /* "fast_similarity.pyx":139
+  /* "fast_similarity.pyx":152
  *         raise MemoryError()
  *     sim_matrix.value = <double *>malloc(sizeof(double) * num_entries)
  *     sim_matrix.size = num_entries             # <<<<<<<<<<<<<<
@@ -2487,37 +2513,37 @@ static struct __pyx_t_15fast_similarity_Similarity *__pyx_f_15fast_similarity_bu
  */
   __pyx_v_sim_matrix->size = __pyx_v_num_entries;
 
-  /* "fast_similarity.pyx":140
+  /* "fast_similarity.pyx":153
  *     sim_matrix.value = <double *>malloc(sizeof(double) * num_entries)
  *     sim_matrix.size = num_entries
  *     if not sim_matrix.value:             # <<<<<<<<<<<<<<
  *         raise MemoryError()
- *     cdef ULong counter
+ *     cdef LLong counter
  */
   __pyx_t_1 = ((!(__pyx_v_sim_matrix->value != 0)) != 0);
   if (__pyx_t_1) {
 
-    /* "fast_similarity.pyx":141
+    /* "fast_similarity.pyx":154
  *     sim_matrix.size = num_entries
  *     if not sim_matrix.value:
  *         raise MemoryError()             # <<<<<<<<<<<<<<
- *     cdef ULong counter
- *     with nogil, parallel():
+ *     cdef LLong counter
+ *     # for i in range(all_vectors.size - 1):
  */
-    PyErr_NoMemory(); __PYX_ERR(0, 141, __pyx_L1_error)
+    PyErr_NoMemory(); __PYX_ERR(0, 154, __pyx_L1_error)
 
-    /* "fast_similarity.pyx":140
+    /* "fast_similarity.pyx":153
  *     sim_matrix.value = <double *>malloc(sizeof(double) * num_entries)
  *     sim_matrix.size = num_entries
  *     if not sim_matrix.value:             # <<<<<<<<<<<<<<
  *         raise MemoryError()
- *     cdef ULong counter
+ *     cdef LLong counter
  */
   }
 
-  /* "fast_similarity.pyx":143
- *         raise MemoryError()
- *     cdef ULong counter
+  /* "fast_similarity.pyx":157
+ *     cdef LLong counter
+ *     # for i in range(all_vectors.size - 1):
  *     with nogil, parallel():             # <<<<<<<<<<<<<<
  *         for i in prange(all_vectors.size - 1, schedule='guided'):
  *             for j in range(i + 1, all_vectors.size):
@@ -2540,12 +2566,12 @@ static struct __pyx_t_15fast_similarity_Similarity *__pyx_f_15fast_similarity_bu
             #endif /* _OPENMP */
             {
 
-                /* "fast_similarity.pyx":144
- *     cdef ULong counter
+                /* "fast_similarity.pyx":158
+ *     # for i in range(all_vectors.size - 1):
  *     with nogil, parallel():
  *         for i in prange(all_vectors.size - 1, schedule='guided'):             # <<<<<<<<<<<<<<
  *             for j in range(i + 1, all_vectors.size):
- *                 counter = (all_vectors.size * i) - (i * (i + 1) / 2) + (j - i) - 1
+ *                 counter = ((all_vectors.size * i)
  */
                 __pyx_t_2 = (__pyx_v_all_vectors->size - 1);
                 if (1 == 0) abort();
@@ -2558,34 +2584,34 @@ static struct __pyx_t_15fast_similarity_Similarity *__pyx_f_15fast_similarity_bu
                         #endif /* _OPENMP */
                         for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_4; __pyx_t_3++){
                             {
-                                __pyx_v_i = (__pyx_t_15fast_similarity_ULong)(0 + 1 * __pyx_t_3);
+                                __pyx_v_i = (__pyx_t_15fast_similarity_LLong)(0 + 1 * __pyx_t_3);
                                 /* Initialize private variables to invalid values */
-                                __pyx_v_counter = ((__pyx_t_15fast_similarity_ULong)0xbad0bad0);
-                                __pyx_v_j = ((__pyx_t_15fast_similarity_ULong)0xbad0bad0);
+                                __pyx_v_counter = ((__pyx_t_15fast_similarity_LLong)0xbad0bad0);
+                                __pyx_v_j = ((__pyx_t_15fast_similarity_LLong)0xbad0bad0);
 
-                                /* "fast_similarity.pyx":145
+                                /* "fast_similarity.pyx":159
  *     with nogil, parallel():
  *         for i in prange(all_vectors.size - 1, schedule='guided'):
  *             for j in range(i + 1, all_vectors.size):             # <<<<<<<<<<<<<<
- *                 counter = (all_vectors.size * i) - (i * (i + 1) / 2) + (j - i) - 1
- *                 sim_matrix.value[counter] = getSimilarity(
+ *                 counter = ((all_vectors.size * i)
+ *                            - (i * (i + 1) / 2)
  */
                                 __pyx_t_5 = __pyx_v_all_vectors->size;
                                 for (__pyx_t_6 = (__pyx_v_i + 1); __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
                                   __pyx_v_j = __pyx_t_6;
 
-                                  /* "fast_similarity.pyx":146
- *         for i in prange(all_vectors.size - 1, schedule='guided'):
- *             for j in range(i + 1, all_vectors.size):
- *                 counter = (all_vectors.size * i) - (i * (i + 1) / 2) + (j - i) - 1             # <<<<<<<<<<<<<<
+                                  /* "fast_similarity.pyx":163
+ *                            - (i * (i + 1) / 2)
+ *                            + (j - i)
+ *                            - 1)             # <<<<<<<<<<<<<<
  *                 sim_matrix.value[counter] = getSimilarity(
  *                     &all_vectors.features[i],
  */
-                                  __pyx_v_counter = ((((__pyx_v_all_vectors->size * __pyx_v_i) - ((__pyx_v_i * (__pyx_v_i + 1)) / 2)) + (__pyx_v_j - __pyx_v_i)) - 1);
+                                  __pyx_v_counter = ((((__pyx_v_all_vectors->size * __pyx_v_i) - __Pyx_div___pyx_t_15fast_similarity_LLong((__pyx_v_i * (__pyx_v_i + 1)), 2)) + (__pyx_v_j - __pyx_v_i)) - 1);
 
-                                  /* "fast_similarity.pyx":147
- *             for j in range(i + 1, all_vectors.size):
- *                 counter = (all_vectors.size * i) - (i * (i + 1) / 2) + (j - i) - 1
+                                  /* "fast_similarity.pyx":164
+ *                            + (j - i)
+ *                            - 1)
  *                 sim_matrix.value[counter] = getSimilarity(             # <<<<<<<<<<<<<<
  *                     &all_vectors.features[i],
  *                     &all_vectors.features[j]
@@ -2606,9 +2632,9 @@ static struct __pyx_t_15fast_similarity_Similarity *__pyx_f_15fast_similarity_bu
         #endif
       }
 
-      /* "fast_similarity.pyx":143
- *         raise MemoryError()
- *     cdef ULong counter
+      /* "fast_similarity.pyx":157
+ *     cdef LLong counter
+ *     # for i in range(all_vectors.size - 1):
  *     with nogil, parallel():             # <<<<<<<<<<<<<<
  *         for i in prange(all_vectors.size - 1, schedule='guided'):
  *             for j in range(i + 1, all_vectors.size):
@@ -2624,7 +2650,7 @@ static struct __pyx_t_15fast_similarity_Similarity *__pyx_f_15fast_similarity_bu
       }
   }
 
-  /* "fast_similarity.pyx":151
+  /* "fast_similarity.pyx":168
  *                     &all_vectors.features[j]
  *                 )
  *     return sim_matrix             # <<<<<<<<<<<<<<
@@ -2634,7 +2660,7 @@ static struct __pyx_t_15fast_similarity_Similarity *__pyx_f_15fast_similarity_bu
   __pyx_r = __pyx_v_sim_matrix;
   goto __pyx_L0;
 
-  /* "fast_similarity.pyx":126
+  /* "fast_similarity.pyx":127
  * 
  * 
  * cdef Similarity * buildSimilarityMatrix(DataSet * all_vectors):             # <<<<<<<<<<<<<<
@@ -2651,36 +2677,36 @@ static struct __pyx_t_15fast_similarity_Similarity *__pyx_f_15fast_similarity_bu
   return __pyx_r;
 }
 
-/* "fast_similarity.pyx":154
+/* "fast_similarity.pyx":171
  * 
  * 
  * cdef printSimilarityMatrix(Similarity * sim_matrix, ULong size,  str outfile):             # <<<<<<<<<<<<<<
- *     cdef int idx
+ *     cdef LLong idx
  *     cdef FILE * f = fopen(outfile, "w")
  */
 
 static PyObject *__pyx_f_15fast_similarity_printSimilarityMatrix(struct __pyx_t_15fast_similarity_Similarity *__pyx_v_sim_matrix, CYTHON_UNUSED __pyx_t_15fast_similarity_ULong __pyx_v_size, PyObject *__pyx_v_outfile) {
-  int __pyx_v_idx;
+  __pyx_t_15fast_similarity_LLong __pyx_v_idx;
   FILE *__pyx_v_f;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   char const *__pyx_t_1;
-  __pyx_t_15fast_similarity_ULong __pyx_t_2;
-  int __pyx_t_3;
+  __pyx_t_15fast_similarity_LLong __pyx_t_2;
+  __pyx_t_15fast_similarity_LLong __pyx_t_3;
   __Pyx_RefNannySetupContext("printSimilarityMatrix", 0);
 
-  /* "fast_similarity.pyx":156
+  /* "fast_similarity.pyx":173
  * cdef printSimilarityMatrix(Similarity * sim_matrix, ULong size,  str outfile):
- *     cdef int idx
+ *     cdef LLong idx
  *     cdef FILE * f = fopen(outfile, "w")             # <<<<<<<<<<<<<<
  *     for idx in range(sim_matrix.size):
  *         fprintf(f, "%f\n", sim_matrix.value[idx])
  */
-  __pyx_t_1 = __Pyx_PyObject_AsString(__pyx_v_outfile); if (unlikely((!__pyx_t_1) && PyErr_Occurred())) __PYX_ERR(0, 156, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_AsString(__pyx_v_outfile); if (unlikely((!__pyx_t_1) && PyErr_Occurred())) __PYX_ERR(0, 173, __pyx_L1_error)
   __pyx_v_f = fopen(__pyx_t_1, ((char const *)"w"));
 
-  /* "fast_similarity.pyx":157
- *     cdef int idx
+  /* "fast_similarity.pyx":174
+ *     cdef LLong idx
  *     cdef FILE * f = fopen(outfile, "w")
  *     for idx in range(sim_matrix.size):             # <<<<<<<<<<<<<<
  *         fprintf(f, "%f\n", sim_matrix.value[idx])
@@ -2690,7 +2716,7 @@ static PyObject *__pyx_f_15fast_similarity_printSimilarityMatrix(struct __pyx_t_
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_idx = __pyx_t_3;
 
-    /* "fast_similarity.pyx":158
+    /* "fast_similarity.pyx":175
  *     cdef FILE * f = fopen(outfile, "w")
  *     for idx in range(sim_matrix.size):
  *         fprintf(f, "%f\n", sim_matrix.value[idx])             # <<<<<<<<<<<<<<
@@ -2700,7 +2726,7 @@ static PyObject *__pyx_f_15fast_similarity_printSimilarityMatrix(struct __pyx_t_
     fprintf(__pyx_v_f, ((char const *)"%f\n"), (__pyx_v_sim_matrix->value[__pyx_v_idx]));
   }
 
-  /* "fast_similarity.pyx":159
+  /* "fast_similarity.pyx":176
  *     for idx in range(sim_matrix.size):
  *         fprintf(f, "%f\n", sim_matrix.value[idx])
  *     fclose(f)             # <<<<<<<<<<<<<<
@@ -2709,11 +2735,11 @@ static PyObject *__pyx_f_15fast_similarity_printSimilarityMatrix(struct __pyx_t_
  */
   fclose(__pyx_v_f);
 
-  /* "fast_similarity.pyx":154
+  /* "fast_similarity.pyx":171
  * 
  * 
  * cdef printSimilarityMatrix(Similarity * sim_matrix, ULong size,  str outfile):             # <<<<<<<<<<<<<<
- *     cdef int idx
+ *     cdef LLong idx
  *     cdef FILE * f = fopen(outfile, "w")
  */
 
@@ -2729,7 +2755,7 @@ static PyObject *__pyx_f_15fast_similarity_printSimilarityMatrix(struct __pyx_t_
   return __pyx_r;
 }
 
-/* "fast_similarity.pyx":162
+/* "fast_similarity.pyx":179
  * 
  * 
  * def main():             # <<<<<<<<<<<<<<
@@ -2760,68 +2786,130 @@ static PyObject *__pyx_pf_15fast_similarity_3main(CYTHON_UNUSED PyObject *__pyx_
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("main", 0);
 
-  /* "fast_similarity.pyx":167
+  /* "fast_similarity.pyx":184
  *     input file
  *     """
- *     cdef str infile = './3k.vec'             # <<<<<<<<<<<<<<
- *     cdef str outfile = './3k.sim'
+ *     cdef str infile = './80k.vec'             # <<<<<<<<<<<<<<
+ *     cdef str outfile = './80k.sim'
  *     cdef DataSet * all_vectors = getAllVectors(infile)
  */
-  __Pyx_INCREF(__pyx_kp_s_3k_vec);
-  __pyx_v_infile = __pyx_kp_s_3k_vec;
+  __Pyx_INCREF(__pyx_kp_s_80k_vec);
+  __pyx_v_infile = __pyx_kp_s_80k_vec;
 
-  /* "fast_similarity.pyx":168
+  /* "fast_similarity.pyx":185
  *     """
- *     cdef str infile = './3k.vec'
- *     cdef str outfile = './3k.sim'             # <<<<<<<<<<<<<<
+ *     cdef str infile = './80k.vec'
+ *     cdef str outfile = './80k.sim'             # <<<<<<<<<<<<<<
  *     cdef DataSet * all_vectors = getAllVectors(infile)
- *     # print 'Collected all {} vectors'.format(all_vectors.size)
+ *     print 'Collected all {} vectors'.format(all_vectors.size)
  */
-  __Pyx_INCREF(__pyx_kp_s_3k_sim);
-  __pyx_v_outfile = __pyx_kp_s_3k_sim;
+  __Pyx_INCREF(__pyx_kp_s_80k_sim);
+  __pyx_v_outfile = __pyx_kp_s_80k_sim;
 
-  /* "fast_similarity.pyx":169
- *     cdef str infile = './3k.vec'
- *     cdef str outfile = './3k.sim'
+  /* "fast_similarity.pyx":186
+ *     cdef str infile = './80k.vec'
+ *     cdef str outfile = './80k.sim'
  *     cdef DataSet * all_vectors = getAllVectors(infile)             # <<<<<<<<<<<<<<
- *     # print 'Collected all {} vectors'.format(all_vectors.size)
+ *     print 'Collected all {} vectors'.format(all_vectors.size)
  *     sim_matrix = buildSimilarityMatrix(all_vectors)
  */
   __pyx_v_all_vectors = __pyx_f_15fast_similarity_getAllVectors(__pyx_v_infile);
 
-  /* "fast_similarity.pyx":171
+  /* "fast_similarity.pyx":187
+ *     cdef str outfile = './80k.sim'
  *     cdef DataSet * all_vectors = getAllVectors(infile)
- *     # print 'Collected all {} vectors'.format(all_vectors.size)
+ *     print 'Collected all {} vectors'.format(all_vectors.size)             # <<<<<<<<<<<<<<
+ *     sim_matrix = buildSimilarityMatrix(all_vectors)
+ *     print 'Built Similarity Matrix'
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_kp_s_Collected_all_vectors, __pyx_n_s_format); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyInt_From_unsigned_long(__pyx_v_all_vectors->size); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  if (!__pyx_t_4) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+  } else {
+    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __pyx_t_4 = NULL;
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_3);
+    __pyx_t_3 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (__Pyx_PrintOne(0, __pyx_t_1) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "fast_similarity.pyx":188
+ *     cdef DataSet * all_vectors = getAllVectors(infile)
+ *     print 'Collected all {} vectors'.format(all_vectors.size)
  *     sim_matrix = buildSimilarityMatrix(all_vectors)             # <<<<<<<<<<<<<<
- *     # print 'Built Similarity Matrix'
+ *     print 'Built Similarity Matrix'
  *     printSimilarityMatrix(sim_matrix, all_vectors.size, outfile)
  */
   __pyx_v_sim_matrix = __pyx_f_15fast_similarity_buildSimilarityMatrix(__pyx_v_all_vectors);
 
-  /* "fast_similarity.pyx":173
+  /* "fast_similarity.pyx":189
+ *     print 'Collected all {} vectors'.format(all_vectors.size)
  *     sim_matrix = buildSimilarityMatrix(all_vectors)
- *     # print 'Built Similarity Matrix'
+ *     print 'Built Similarity Matrix'             # <<<<<<<<<<<<<<
+ *     printSimilarityMatrix(sim_matrix, all_vectors.size, outfile)
+ *     print 'Similarity Matrix saved'
+ */
+  if (__Pyx_PrintOne(0, __pyx_kp_s_Built_Similarity_Matrix) < 0) __PYX_ERR(0, 189, __pyx_L1_error)
+
+  /* "fast_similarity.pyx":190
+ *     sim_matrix = buildSimilarityMatrix(all_vectors)
+ *     print 'Built Similarity Matrix'
  *     printSimilarityMatrix(sim_matrix, all_vectors.size, outfile)             # <<<<<<<<<<<<<<
- *     # print 'Similarity Matrix saved'
+ *     print 'Similarity Matrix saved'
  *     free(all_vectors.features.index)
  */
-  __pyx_t_1 = __pyx_f_15fast_similarity_printSimilarityMatrix(__pyx_v_sim_matrix, __pyx_v_all_vectors->size, __pyx_v_outfile); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_15fast_similarity_printSimilarityMatrix(__pyx_v_sim_matrix, __pyx_v_all_vectors->size, __pyx_v_outfile); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "fast_similarity.pyx":175
+  /* "fast_similarity.pyx":191
+ *     print 'Built Similarity Matrix'
  *     printSimilarityMatrix(sim_matrix, all_vectors.size, outfile)
- *     # print 'Similarity Matrix saved'
+ *     print 'Similarity Matrix saved'             # <<<<<<<<<<<<<<
+ *     free(all_vectors.features.index)
+ *     free(all_vectors.features.value)
+ */
+  if (__Pyx_PrintOne(0, __pyx_kp_s_Similarity_Matrix_saved) < 0) __PYX_ERR(0, 191, __pyx_L1_error)
+
+  /* "fast_similarity.pyx":192
+ *     printSimilarityMatrix(sim_matrix, all_vectors.size, outfile)
+ *     print 'Similarity Matrix saved'
  *     free(all_vectors.features.index)             # <<<<<<<<<<<<<<
  *     free(all_vectors.features.value)
  *     free(all_vectors.features)
  */
   free(__pyx_v_all_vectors->features->index);
 
-  /* "fast_similarity.pyx":176
- *     # print 'Similarity Matrix saved'
+  /* "fast_similarity.pyx":193
+ *     print 'Similarity Matrix saved'
  *     free(all_vectors.features.index)
  *     free(all_vectors.features.value)             # <<<<<<<<<<<<<<
  *     free(all_vectors.features)
@@ -2829,7 +2917,7 @@ static PyObject *__pyx_pf_15fast_similarity_3main(CYTHON_UNUSED PyObject *__pyx_
  */
   free(__pyx_v_all_vectors->features->value);
 
-  /* "fast_similarity.pyx":177
+  /* "fast_similarity.pyx":194
  *     free(all_vectors.features.index)
  *     free(all_vectors.features.value)
  *     free(all_vectors.features)             # <<<<<<<<<<<<<<
@@ -2838,7 +2926,7 @@ static PyObject *__pyx_pf_15fast_similarity_3main(CYTHON_UNUSED PyObject *__pyx_
  */
   free(__pyx_v_all_vectors->features);
 
-  /* "fast_similarity.pyx":178
+  /* "fast_similarity.pyx":195
  *     free(all_vectors.features.value)
  *     free(all_vectors.features)
  *     free(all_vectors)             # <<<<<<<<<<<<<<
@@ -2847,7 +2935,7 @@ static PyObject *__pyx_pf_15fast_similarity_3main(CYTHON_UNUSED PyObject *__pyx_
  */
   free(__pyx_v_all_vectors);
 
-  /* "fast_similarity.pyx":179
+  /* "fast_similarity.pyx":196
  *     free(all_vectors.features)
  *     free(all_vectors)
  *     free(sim_matrix.value)             # <<<<<<<<<<<<<<
@@ -2855,14 +2943,14 @@ static PyObject *__pyx_pf_15fast_similarity_3main(CYTHON_UNUSED PyObject *__pyx_
  */
   free(__pyx_v_sim_matrix->value);
 
-  /* "fast_similarity.pyx":180
+  /* "fast_similarity.pyx":197
  *     free(all_vectors)
  *     free(sim_matrix.value)
  *     free(sim_matrix)             # <<<<<<<<<<<<<<
  */
   free(__pyx_v_sim_matrix);
 
-  /* "fast_similarity.pyx":162
+  /* "fast_similarity.pyx":179
  * 
  * 
  * def main():             # <<<<<<<<<<<<<<
@@ -2875,6 +2963,10 @@ static PyObject *__pyx_pf_15fast_similarity_3main(CYTHON_UNUSED PyObject *__pyx_
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
   __Pyx_AddTraceback("fast_similarity.main", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -3049,10 +3141,13 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
-  {&__pyx_kp_s_3k_sim, __pyx_k_3k_sim, sizeof(__pyx_k_3k_sim), 0, 0, 1, 0},
-  {&__pyx_kp_s_3k_vec, __pyx_k_3k_vec, sizeof(__pyx_k_3k_vec), 0, 0, 1, 0},
+  {&__pyx_kp_s_80k_sim, __pyx_k_80k_sim, sizeof(__pyx_k_80k_sim), 0, 0, 1, 0},
+  {&__pyx_kp_s_80k_vec, __pyx_k_80k_vec, sizeof(__pyx_k_80k_vec), 0, 0, 1, 0},
+  {&__pyx_kp_s_Built_Similarity_Matrix, __pyx_k_Built_Similarity_Matrix, sizeof(__pyx_k_Built_Similarity_Matrix), 0, 0, 1, 0},
+  {&__pyx_kp_s_Collected_all_vectors, __pyx_k_Collected_all_vectors, sizeof(__pyx_k_Collected_all_vectors), 0, 0, 1, 0},
   {&__pyx_n_s_MemoryError, __pyx_k_MemoryError, sizeof(__pyx_k_MemoryError), 0, 0, 1, 1},
   {&__pyx_kp_s_Ran_out_of_memory_while_reading, __pyx_k_Ran_out_of_memory_while_reading, sizeof(__pyx_k_Ran_out_of_memory_while_reading), 0, 0, 1, 0},
+  {&__pyx_kp_s_Similarity_Matrix_saved, __pyx_k_Similarity_Matrix_saved, sizeof(__pyx_k_Similarity_Matrix_saved), 0, 0, 1, 0},
   {&__pyx_n_s_StopIteration, __pyx_k_StopIteration, sizeof(__pyx_k_StopIteration), 0, 0, 1, 1},
   {&__pyx_kp_s__2, __pyx_k__2, sizeof(__pyx_k__2), 0, 0, 1, 0},
   {&__pyx_n_s_all_vectors, __pyx_k_all_vectors, sizeof(__pyx_k_all_vectors), 0, 0, 1, 1},
@@ -3065,6 +3160,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
   {&__pyx_n_s_fileIter, __pyx_k_fileIter, sizeof(__pyx_k_fileIter), 0, 0, 1, 1},
   {&__pyx_n_s_filename, __pyx_k_filename, sizeof(__pyx_k_filename), 0, 0, 1, 1},
+  {&__pyx_n_s_format, __pyx_k_format, sizeof(__pyx_k_format), 0, 0, 1, 1},
   {&__pyx_kp_s_home_ankur_devbench_active_lear, __pyx_k_home_ankur_devbench_active_lear, sizeof(__pyx_k_home_ankur_devbench_active_lear), 0, 0, 1, 0},
   {&__pyx_n_s_ifi, __pyx_k_ifi, sizeof(__pyx_k_ifi), 0, 0, 1, 1},
   {&__pyx_n_s_infile, __pyx_k_infile, sizeof(__pyx_k_infile), 0, 0, 1, 1},
@@ -3084,10 +3180,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_open = __Pyx_GetBuiltinName(__pyx_n_s_open); if (!__pyx_builtin_open) __PYX_ERR(0, 31, __pyx_L1_error)
-  __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) __PYX_ERR(0, 50, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 57, __pyx_L1_error)
-  __pyx_builtin_StopIteration = __Pyx_GetBuiltinName(__pyx_n_s_StopIteration); if (!__pyx_builtin_StopIteration) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_builtin_open = __Pyx_GetBuiltinName(__pyx_n_s_open); if (!__pyx_builtin_open) __PYX_ERR(0, 32, __pyx_L1_error)
+  __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 58, __pyx_L1_error)
+  __pyx_builtin_StopIteration = __Pyx_GetBuiltinName(__pyx_n_s_StopIteration); if (!__pyx_builtin_StopIteration) __PYX_ERR(0, 95, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -3097,51 +3193,51 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "fast_similarity.pyx":31
+  /* "fast_similarity.pyx":32
  * def fileIter(str filename):
  *     cdef str line
  *     with open(filename) as ifi:             # <<<<<<<<<<<<<<
  *         for line in ifi:
  *             yield line
  */
-  __pyx_tuple_ = PyTuple_Pack(3, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 31, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(3, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "fast_similarity.pyx":58
+  /* "fast_similarity.pyx":59
  *     features.size = num_features
  *     for i in range(num_features):
  *         index, feature_val = feature_strings[i].split(':')             # <<<<<<<<<<<<<<
  *         features.index[i] = strtoul(index, &tmp, 10)
  *         features.value[i] = strtod(feature_val, &tmp)
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s__2); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 58, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s__2); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "fast_similarity.pyx":29
+  /* "fast_similarity.pyx":30
  * # The compromise in speed is to accomodate for reading one line at a time from
  * # the file instead of trying to load the entire file in the memory
  * def fileIter(str filename):             # <<<<<<<<<<<<<<
  *     cdef str line
  *     with open(filename) as ifi:
  */
-  __pyx_tuple__4 = PyTuple_Pack(3, __pyx_n_s_filename, __pyx_n_s_line, __pyx_n_s_ifi); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_tuple__4 = PyTuple_Pack(3, __pyx_n_s_filename, __pyx_n_s_line, __pyx_n_s_ifi); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 30, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
-  __pyx_codeobj__5 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__4, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_ankur_devbench_active_lear, __pyx_n_s_fileIter, 29, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__5)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_codeobj__5 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__4, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_ankur_devbench_active_lear, __pyx_n_s_fileIter, 30, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__5)) __PYX_ERR(0, 30, __pyx_L1_error)
 
-  /* "fast_similarity.pyx":162
+  /* "fast_similarity.pyx":179
  * 
  * 
  * def main():             # <<<<<<<<<<<<<<
  *     """
  *     Before running, change the value of batch_size to speed up reading the
  */
-  __pyx_tuple__6 = PyTuple_Pack(4, __pyx_n_s_infile, __pyx_n_s_outfile, __pyx_n_s_all_vectors, __pyx_n_s_sim_matrix); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __pyx_tuple__6 = PyTuple_Pack(4, __pyx_n_s_infile, __pyx_n_s_outfile, __pyx_n_s_all_vectors, __pyx_n_s_sim_matrix); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 179, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
-  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(0, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_ankur_devbench_active_lear, __pyx_n_s_main_2, 162, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(0, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_ankur_devbench_active_lear, __pyx_n_s_main_2, 179, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(0, 179, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -3247,7 +3343,7 @@ PyMODINIT_FUNC PyInit_fast_similarity(void)
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_15fast_similarity___pyx_scope_struct__fileIter) < 0) __PYX_ERR(0, 29, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_15fast_similarity___pyx_scope_struct__fileIter) < 0) __PYX_ERR(0, 30, __pyx_L1_error)
   __pyx_type_15fast_similarity___pyx_scope_struct__fileIter.tp_print = 0;
   __pyx_ptype_15fast_similarity___pyx_scope_struct__fileIter = &__pyx_type_15fast_similarity___pyx_scope_struct__fileIter;
   /*--- Type import code ---*/
@@ -3258,28 +3354,28 @@ PyMODINIT_FUNC PyInit_fast_similarity(void)
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "fast_similarity.pyx":29
+  /* "fast_similarity.pyx":30
  * # The compromise in speed is to accomodate for reading one line at a time from
  * # the file instead of trying to load the entire file in the memory
  * def fileIter(str filename):             # <<<<<<<<<<<<<<
  *     cdef str line
  *     with open(filename) as ifi:
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_15fast_similarity_1fileIter, NULL, __pyx_n_s_fast_similarity); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_15fast_similarity_1fileIter, NULL, __pyx_n_s_fast_similarity); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_fileIter, __pyx_t_1) < 0) __PYX_ERR(0, 29, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_fileIter, __pyx_t_1) < 0) __PYX_ERR(0, 30, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "fast_similarity.pyx":162
+  /* "fast_similarity.pyx":179
  * 
  * 
  * def main():             # <<<<<<<<<<<<<<
  *     """
  *     Before running, change the value of batch_size to speed up reading the
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_15fast_similarity_4main, NULL, __pyx_n_s_fast_similarity); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_15fast_similarity_4main, NULL, __pyx_n_s_fast_similarity); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 179, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_main_2, __pyx_t_1) < 0) __PYX_ERR(0, 162, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_main_2, __pyx_t_1) < 0) __PYX_ERR(0, 179, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "fast_similarity.pyx":1
@@ -3784,6 +3880,14 @@ static CYTHON_INLINE int __Pyx_PyErr_ExceptionMatchesInState(PyThreadState* tsta
 }
 #endif
 
+/* None */
+        static CYTHON_INLINE __pyx_t_15fast_similarity_LLong __Pyx_div___pyx_t_15fast_similarity_LLong(__pyx_t_15fast_similarity_LLong a, __pyx_t_15fast_similarity_LLong b) {
+    __pyx_t_15fast_similarity_LLong q = a / b;
+    __pyx_t_15fast_similarity_LLong r = a - q*b;
+    q -= ((r != 0) & ((r ^ b) < 0));
+    return q;
+}
+
 /* CodeObjectCache */
         static int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, int count, int code_line) {
     int start = 0, mid = 0, end = count - 1;
@@ -4123,6 +4227,33 @@ bad:
         int one = 1; int little = (int)*(unsigned char *)&one;
         unsigned char *bytes = (unsigned char *)&value;
         return _PyLong_FromByteArray(bytes, sizeof(unsigned long),
+                                     little, !is_unsigned);
+    }
+}
+
+/* CIntToPy */
+        static CYTHON_INLINE PyObject* __Pyx_PyInt_From_PY_LONG_LONG(PY_LONG_LONG value) {
+    const PY_LONG_LONG neg_one = (PY_LONG_LONG) -1, const_zero = (PY_LONG_LONG) 0;
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(PY_LONG_LONG) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(PY_LONG_LONG) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+        } else if (sizeof(PY_LONG_LONG) <= sizeof(unsigned PY_LONG_LONG)) {
+            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
+        }
+    } else {
+        if (sizeof(PY_LONG_LONG) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(PY_LONG_LONG) <= sizeof(PY_LONG_LONG)) {
+            return PyLong_FromLongLong((PY_LONG_LONG) value);
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+        return _PyLong_FromByteArray(bytes, sizeof(PY_LONG_LONG),
                                      little, !is_unsigned);
     }
 }
@@ -4532,6 +4663,191 @@ raise_neg_overflow:
     PyErr_SetString(PyExc_OverflowError,
         "can't convert negative value to unsigned long");
     return (unsigned long) -1;
+}
+
+/* CIntFromPy */
+        static CYTHON_INLINE PY_LONG_LONG __Pyx_PyInt_As_PY_LONG_LONG(PyObject *x) {
+    const PY_LONG_LONG neg_one = (PY_LONG_LONG) -1, const_zero = (PY_LONG_LONG) 0;
+    const int is_unsigned = neg_one > const_zero;
+#if PY_MAJOR_VERSION < 3
+    if (likely(PyInt_Check(x))) {
+        if (sizeof(PY_LONG_LONG) < sizeof(long)) {
+            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, long, PyInt_AS_LONG(x))
+        } else {
+            long val = PyInt_AS_LONG(x);
+            if (is_unsigned && unlikely(val < 0)) {
+                goto raise_neg_overflow;
+            }
+            return (PY_LONG_LONG) val;
+        }
+    } else
+#endif
+    if (likely(PyLong_Check(x))) {
+        if (is_unsigned) {
+#if CYTHON_USE_PYLONG_INTERNALS
+            const digit* digits = ((PyLongObject*)x)->ob_digit;
+            switch (Py_SIZE(x)) {
+                case  0: return (PY_LONG_LONG) 0;
+                case  1: __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, digit, digits[0])
+                case 2:
+                    if (8 * sizeof(PY_LONG_LONG) > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(PY_LONG_LONG) >= 2 * PyLong_SHIFT) {
+                            return (PY_LONG_LONG) (((((PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[0]));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (8 * sizeof(PY_LONG_LONG) > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(PY_LONG_LONG) >= 3 * PyLong_SHIFT) {
+                            return (PY_LONG_LONG) (((((((PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[0]));
+                        }
+                    }
+                    break;
+                case 4:
+                    if (8 * sizeof(PY_LONG_LONG) > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(PY_LONG_LONG) >= 4 * PyLong_SHIFT) {
+                            return (PY_LONG_LONG) (((((((((PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[0]));
+                        }
+                    }
+                    break;
+            }
+#endif
+#if CYTHON_COMPILING_IN_CPYTHON
+            if (unlikely(Py_SIZE(x) < 0)) {
+                goto raise_neg_overflow;
+            }
+#else
+            {
+                int result = PyObject_RichCompareBool(x, Py_False, Py_LT);
+                if (unlikely(result < 0))
+                    return (PY_LONG_LONG) -1;
+                if (unlikely(result == 1))
+                    goto raise_neg_overflow;
+            }
+#endif
+            if (sizeof(PY_LONG_LONG) <= sizeof(unsigned long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(PY_LONG_LONG, unsigned long, PyLong_AsUnsignedLong(x))
+            } else if (sizeof(PY_LONG_LONG) <= sizeof(unsigned PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(PY_LONG_LONG, unsigned PY_LONG_LONG, PyLong_AsUnsignedLongLong(x))
+            }
+        } else {
+#if CYTHON_USE_PYLONG_INTERNALS
+            const digit* digits = ((PyLongObject*)x)->ob_digit;
+            switch (Py_SIZE(x)) {
+                case  0: return (PY_LONG_LONG) 0;
+                case -1: __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, sdigit, (sdigit) (-(sdigit)digits[0]))
+                case  1: __PYX_VERIFY_RETURN_INT(PY_LONG_LONG,  digit, +digits[0])
+                case -2:
+                    if (8 * sizeof(PY_LONG_LONG) - 1 > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, long, -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT) {
+                            return (PY_LONG_LONG) (((PY_LONG_LONG)-1)*(((((PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[0])));
+                        }
+                    }
+                    break;
+                case 2:
+                    if (8 * sizeof(PY_LONG_LONG) > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT) {
+                            return (PY_LONG_LONG) ((((((PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[0])));
+                        }
+                    }
+                    break;
+                case -3:
+                    if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, long, -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT) {
+                            return (PY_LONG_LONG) (((PY_LONG_LONG)-1)*(((((((PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[0])));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (8 * sizeof(PY_LONG_LONG) > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT) {
+                            return (PY_LONG_LONG) ((((((((PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[0])));
+                        }
+                    }
+                    break;
+                case -4:
+                    if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, long, -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT) {
+                            return (PY_LONG_LONG) (((PY_LONG_LONG)-1)*(((((((((PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[0])));
+                        }
+                    }
+                    break;
+                case 4:
+                    if (8 * sizeof(PY_LONG_LONG) > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(PY_LONG_LONG, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT) {
+                            return (PY_LONG_LONG) ((((((((((PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (PY_LONG_LONG)digits[0])));
+                        }
+                    }
+                    break;
+            }
+#endif
+            if (sizeof(PY_LONG_LONG) <= sizeof(long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(PY_LONG_LONG, long, PyLong_AsLong(x))
+            } else if (sizeof(PY_LONG_LONG) <= sizeof(PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(PY_LONG_LONG, PY_LONG_LONG, PyLong_AsLongLong(x))
+            }
+        }
+        {
+#if CYTHON_COMPILING_IN_PYPY && !defined(_PyLong_AsByteArray)
+            PyErr_SetString(PyExc_RuntimeError,
+                            "_PyLong_AsByteArray() not available in PyPy, cannot convert large numbers");
+#else
+            PY_LONG_LONG val;
+            PyObject *v = __Pyx_PyNumber_IntOrLong(x);
+ #if PY_MAJOR_VERSION < 3
+            if (likely(v) && !PyLong_Check(v)) {
+                PyObject *tmp = v;
+                v = PyNumber_Long(tmp);
+                Py_DECREF(tmp);
+            }
+ #endif
+            if (likely(v)) {
+                int one = 1; int is_little = (int)*(unsigned char *)&one;
+                unsigned char *bytes = (unsigned char *)&val;
+                int ret = _PyLong_AsByteArray((PyLongObject *)v,
+                                              bytes, sizeof(val),
+                                              is_little, !is_unsigned);
+                Py_DECREF(v);
+                if (likely(!ret))
+                    return val;
+            }
+#endif
+            return (PY_LONG_LONG) -1;
+        }
+    } else {
+        PY_LONG_LONG val;
+        PyObject *tmp = __Pyx_PyNumber_IntOrLong(x);
+        if (!tmp) return (PY_LONG_LONG) -1;
+        val = __Pyx_PyInt_As_PY_LONG_LONG(tmp);
+        Py_DECREF(tmp);
+        return val;
+    }
+raise_overflow:
+    PyErr_SetString(PyExc_OverflowError,
+        "value too large to convert to PY_LONG_LONG");
+    return (PY_LONG_LONG) -1;
+raise_neg_overflow:
+    PyErr_SetString(PyExc_OverflowError,
+        "can't convert negative value to PY_LONG_LONG");
+    return (PY_LONG_LONG) -1;
 }
 
 /* CIntToPy */
