@@ -8,3 +8,4 @@ build/
 orig/
 simple/
 tmp*
+.venv

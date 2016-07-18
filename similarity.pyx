@@ -1,6 +1,8 @@
 from libc.math cimport pow, sqrt
-from libc.stdlib cimport strtoul, strtod, malloc, realloc, free
+from libc.stdlib cimport strtoul, strtod
 from libc.stdio cimport fopen, fclose, FILE, fprintf
+
+from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
 
 from cython.parallel import parallel, prange
 
@@ -44,14 +46,13 @@ cdef FeatureVector * parseVector(bytes vector_string):
     cdef char * tmp
     feature_strings = vector_string.split()
     cdef int num_features = len(feature_strings)
-    cdef FeatureVector * features = <FeatureVector *>malloc(
+    cdef FeatureVector * features = <FeatureVector *> PyMem_Malloc(
         sizeof(FeatureVector)
     )
     if not features:
         raise MemoryError()
-    features.index = <ULong *>malloc(sizeof(ULong) *
-                                                num_features)
-    features.value = <double *>malloc(sizeof(double) * num_features)
+    features.index = <ULong *> PyMem_Malloc(sizeof(ULong) * num_features)
+    features.value = <double *> PyMem_Malloc(sizeof(double) * num_features)
     if not features.index or not features.value:
         raise MemoryError()
     features.size = num_features
@@ -68,7 +69,7 @@ cdef DataSet * getAllVectors(str filename):
     batches and memory for the struct will be reallocated successively for each
     batch.
     """
-    cdef DataSet * all_vectors = <DataSet *>malloc(sizeof(DataSet))
+    cdef DataSet * all_vectors = <DataSet *> PyMem_Malloc(sizeof(DataSet))
     if not all_vectors:
         raise MemoryError()
     cdef bytes vector_string
@@ -82,7 +83,7 @@ cdef DataSet * getAllVectors(str filename):
     cdef bint end_of_file = 0
     while not end_of_file:
         batch_counter += 1
-        all_vectors.features = <FeatureVector *>realloc(
+        all_vectors.features = <FeatureVector *> PyMem_Realloc(
             all_vectors.features,
             sizeof(FeatureVector) * batch_size * batch_counter
         )
@@ -145,10 +146,10 @@ cdef Similarity * buildSimilarityMatrix(DataSet * all_vectors):
     cdef bytes matrix_key
     cdef LLong num_entries = <LLong>((pow(all_vectors.size, 2) -
                                       all_vectors.size) / 2)
-    cdef Similarity * sim_matrix = <Similarity *>malloc(sizeof(Similarity))
+    cdef Similarity * sim_matrix = <Similarity *> PyMem_Malloc(sizeof(Similarity))
     if not sim_matrix:
         raise MemoryError()
-    sim_matrix.value = <double *>malloc(sizeof(double) * num_entries)
+    sim_matrix.value = <double *> PyMem_Malloc(sizeof(double) * num_entries)
     sim_matrix.size = num_entries
     if not sim_matrix.value:
         raise MemoryError()
@@ -176,22 +177,22 @@ cdef printSimilarityMatrix(Similarity * sim_matrix, ULong size,  str outfile):
     fclose(f)
 
 
-def main():
+def test():
     """
     Before running, change the value of batch_size to speed up reading the
     input file
     """
-    cdef str infile = './3k.vec'
-    cdef str outfile = './3k.sim'
+    cdef str infile = './data/3k.vec'
+    cdef str outfile = './data/3k.sim'
     cdef DataSet * all_vectors = getAllVectors(infile)
     print 'Collected all {} vectors'.format(all_vectors.size)
     sim_matrix = buildSimilarityMatrix(all_vectors)
     print 'Built Similarity Matrix'
     printSimilarityMatrix(sim_matrix, all_vectors.size, outfile)
     print 'Similarity Matrix saved'
-    free(all_vectors.features.index)
-    free(all_vectors.features.value)
-    free(all_vectors.features)
-    free(all_vectors)
-    free(sim_matrix.value)
-    free(sim_matrix)
+    PyMem_Free(all_vectors.features.index)
+    PyMem_Free(all_vectors.features.value)
+    PyMem_Free(all_vectors.features)
+    PyMem_Free(all_vectors)
+    PyMem_Free(sim_matrix.value)
+    PyMem_Free(sim_matrix)
