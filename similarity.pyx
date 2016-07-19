@@ -6,25 +6,6 @@ from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
 
 from cython.parallel import parallel, prange
 
-ctypedef unsigned long ULong
-ctypedef long long LLong
-
-
-cdef struct FeatureVector:
-    int size
-    ULong * index
-    double * value
-
-
-cdef struct DataSet:
-    ULong size
-    FeatureVector * features
-
-
-cdef struct Similarity:
-    LLong size
-    double * value
-
 
 # This function will run within Python GIL to utilize yield.
 # The compromise in speed is to accomodate for reading one line at a time from
@@ -41,14 +22,14 @@ cdef FeatureVector * parseVector(bytes vector_string):
     This can be further sped up by using non-Python vars and strtok() for
     splitting the strings.
     """
-    cdef bytes index, feature_val
-    cdef int i
-    cdef char * tmp
     feature_strings = vector_string.split()
-    cdef int num_features = len(feature_strings)
-    cdef FeatureVector * features = <FeatureVector *> PyMem_Malloc(
-        sizeof(FeatureVector)
-    )
+    cdef:
+        bytes index, feature_val
+        int i, num_features = len(feature_strings)
+        char * tmp
+        FeatureVector * features = <FeatureVector *> PyMem_Malloc(
+            sizeof(FeatureVector)
+        )
     if not features:
         raise MemoryError()
     features.index = <ULong *> PyMem_Malloc(sizeof(ULong) * num_features)
@@ -69,18 +50,19 @@ cdef DataSet * getAllVectors(str filename):
     batches and memory for the struct will be reallocated successively for each
     batch.
     """
-    cdef DataSet * all_vectors = <DataSet *> PyMem_Malloc(sizeof(DataSet))
+    cdef:
+        bytes vector_string
+        ULong batch_size = 1000
+        ULong batch_counter = 0
+        bint end_of_file = 0
+        DataSet * all_vectors = <DataSet *> PyMem_Malloc(sizeof(DataSet))
     if not all_vectors:
         raise MemoryError()
-    cdef bytes vector_string
-    cdef ULong batch_size = 1000
-    cdef ULong batch_counter = 0
     # Initial allocation for dataset
     # The pointer needs to be null for realloc to not bork
     all_vectors.features = NULL
     all_vectors.size = 0
     file_reader = fileIter(filename)
-    cdef bint end_of_file = 0
     while not end_of_file:
         batch_counter += 1
         all_vectors.features = <FeatureVector *> PyMem_Realloc(
@@ -111,12 +93,15 @@ cdef double getVectorLength(FeatureVector * vector) nogil:
     return sqrt(v_length)
 
 
-cdef double getSimilarity(FeatureVector * vector1, FeatureVector * vector2) nogil:
+cdef double getVectorSimilarity(
+    FeatureVector * vector1,
+    FeatureVector * vector2
+) nogil:
+    cdef double dot_prod = 0.0
+    cdef int v1_idx, v2_idx
     if vector1.size > vector2.size:
         vector1, vector2 = vector2, vector1
 
-    cdef double dot_prod = 0.0
-    cdef int v1_idx, v2_idx
     for v1_idx in range(vector1.size):
         for v2_idx in range(vector2.size):
             if vector2.index[v2_idx] == vector1.index[v1_idx]:
@@ -142,18 +127,17 @@ cdef Similarity * buildSimilarityMatrix(DataSet * all_vectors):
     The cosine similarity of the pair is stored at the index (with 0-indexing):
         Km - m(m+1)/2 + (n-m) - 1
     """
-    cdef LLong i, j
-    cdef bytes matrix_key
-    cdef LLong num_entries = <LLong>((pow(all_vectors.size, 2) -
-                                      all_vectors.size) / 2)
-    cdef Similarity * sim_matrix = <Similarity *> PyMem_Malloc(sizeof(Similarity))
+    cdef:
+        LLong i, j, counter
+        LLong num_entries = <LLong>((pow(all_vectors.size, 2) -
+                                     all_vectors.size) / 2)
+        Similarity * sim_matrix = <Similarity *> PyMem_Malloc(sizeof(Similarity))
     if not sim_matrix:
         raise MemoryError()
     sim_matrix.value = <double *> PyMem_Malloc(sizeof(double) * num_entries)
     sim_matrix.size = num_entries
     if not sim_matrix.value:
         raise MemoryError()
-    cdef LLong counter
     # for i in range(all_vectors.size - 1):
     with nogil, parallel():
         for i in prange(all_vectors.size - 1, schedule='guided'):
@@ -162,11 +146,29 @@ cdef Similarity * buildSimilarityMatrix(DataSet * all_vectors):
                            - (i * (i + 1) / 2)
                            + (j - i)
                            - 1)
-                sim_matrix.value[counter] = getSimilarity(
+                sim_matrix.value[counter] = getVectorSimilarity(
                     &all_vectors.features[i],
                     &all_vectors.features[j]
                 )
     return sim_matrix
+
+
+cdef double getSimilarity(
+    Similarity * sim_matrix,
+    ULong idx1,
+    ULong idx2,
+    ULong data_size
+):
+    if idx2 < idx1:
+        idx1, idx2 = idx2, idx1
+
+    cdef LLong sim_idx
+
+    sim_idx = ((data_size * idx1)
+               - (idx1 * (idx1 + 1) / 2)
+               + (idx2 - idx1)
+               - 1)
+    return sim_matrix.value[sim_idx]
 
 
 cdef printSimilarityMatrix(Similarity * sim_matrix, ULong size,  str outfile):
@@ -177,7 +179,7 @@ cdef printSimilarityMatrix(Similarity * sim_matrix, ULong size,  str outfile):
     fclose(f)
 
 
-def test():
+def test_similarity():
     """
     Before running, change the value of batch_size to speed up reading the
     input file
@@ -186,7 +188,7 @@ def test():
     cdef str outfile = './data/3k.sim'
     cdef DataSet * all_vectors = getAllVectors(infile)
     print 'Collected all {} vectors'.format(all_vectors.size)
-    sim_matrix = buildSimilarityMatrix(all_vectors)
+    cdef Similarity * sim_matrix = buildSimilarityMatrix(all_vectors)
     print 'Built Similarity Matrix'
     printSimilarityMatrix(sim_matrix, all_vectors.size, outfile)
     print 'Similarity Matrix saved'

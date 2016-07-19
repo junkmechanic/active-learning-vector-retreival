@@ -1,11 +1,13 @@
+*.c
+*.html
 *.pyc
 *.run
 *.sim*
 *.so
 *.vec
 *test*
+.venv
 build/
 orig/
 simple/
 tmp*
-.venv
