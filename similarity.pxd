@@ -27,4 +27,4 @@ cdef double getSimilarity(
     ULong idx1,
     ULong idx2,
     ULong data_size
-)
+) nogil

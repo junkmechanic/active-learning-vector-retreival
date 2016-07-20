@@ -158,7 +158,7 @@ cdef double getSimilarity(
     ULong idx1,
     ULong idx2,
     ULong data_size
-):
+) nogil:
     if idx2 < idx1:
         idx1, idx2 = idx2, idx1
 
