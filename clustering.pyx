@@ -1,11 +1,10 @@
 from libc.stdlib cimport rand, srand
-from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
+from cpython.mem cimport PyMem_Malloc, PyMem_Free
 
-from similarity cimport DataSet, Similarity, FeatureVector, getSimilarity
+from similarity cimport DataSet, Similarity, getSimilarity
 from similarity cimport getAllVectors, buildSimilarityMatrix
 
 ctypedef unsigned long ULong
-ctypedef long long LLong
 
 
 cdef void doAssignments(
@@ -19,9 +18,9 @@ cdef void doAssignments(
     Assignes each sample to its closest (in terms of similarity) medoid
     """
     cdef:
-        ULong i
+        int j
+        ULong i, med_idx = 0
         double max_sim
-        med_idx
     for i in range(data_size):
         # each sample i will be compared with each medoid and the one with most
         # similarity will be assigned
@@ -31,7 +30,7 @@ cdef void doAssignments(
             if sim > max_sim:
                 max_sim = sim
                 med_idx = j
-        assigned[i] = j
+        assigned[i] = med_idx
 
 
 cdef void fillClusterMap(
@@ -47,13 +46,33 @@ cdef void fillClusterMap(
     with cluster_idx for each cluster.
     The two need to be passed.
     """
-    cdef ULong i
+    cdef ULong i, c_idx, c_ptr
+    for i in range(num_clusters):
+        cluster_idx[i] = 1
+
+    # First we need to know how many samples belong to each cluster. Only then
+    # can we allocate memory for each cluster.
+    for i in range(data_size):
+        c_idx = assigned[i]
+        cluster_idx[c_idx] += 1
+
+    # Now we can assign memory for each cluster
+    for i in range(num_clusters):
+        cluster_map[i] = <ULong *> PyMem_Malloc(sizeof(ULong) *
+                                                cluster_idx[i])
+        if not cluster_map[i]:
+            raise MemoryError()
+
+    # Reinitialize cluster_idx to help keep track of cluster indices during map
+    # population
     for i in range(num_clusters):
         cluster_idx[i] = 0
 
+    # Now to the actual map population
     for i in range(data_size):
         c_idx = assigned[i]
-        cluster_map[c_idx][cluster_idx[c_idx]] = i
+        c_ptr = cluster_idx[c_idx]
+        cluster_map[c_idx][c_ptr] = i
         cluster_idx[c_idx] += 1
 
 
@@ -80,11 +99,13 @@ cdef double compute_clusters(
         int i
         ULong j, k
         double max_sum, running_sum, cluster_sum
-        ULong med_idx
+        ULong med_idx = 0
         ULong ** cluster_map = <ULong **> PyMem_Malloc(sizeof(ULong *) *
                                                        num_clusters)
         ULong * cluster_idx = <ULong *> PyMem_Malloc(sizeof(ULong) *
                                                      num_clusters)
+    if not cluster_map or not cluster_idx:
+        raise MemoryError()
 
     fillClusterMap(cluster_map, cluster_idx, medoids, assigned, data_size,
                    num_clusters)
@@ -135,12 +156,14 @@ cdef void buildClusters(
     """
     cdef:
         int i, j, itr = 0, hist = 0
-        unsigned int seed = 2016
+        unsigned int seed = 200816
         ULong rand_idx
-        float entropy
+        double entropy
         bint unique, converged
         ULong * prev_medoids = <ULong *> PyMem_Malloc(sizeof(ULong) *
                                                       num_clusters)
+    if not prev_medoids:
+        raise MemoryError()
 
     # Initialize medoids with random samples
     srand(seed)
@@ -162,7 +185,7 @@ cdef void buildClusters(
     # Do clustering till convergence or for max_iterations
     doAssignments(medoids, assigned, sim_matrix, data_size, num_clusters)
     converged = 0
-    while not converged or itr < max_iterations:
+    while not converged and itr < max_iterations:
         entropy = compute_clusters(medoids, assigned, sim_matrix, data_size,
                                    num_clusters)
         print("Iteration : %d , Entropy : %f"%(itr, entropy))
@@ -179,21 +202,28 @@ cdef void buildClusters(
                 prev_medoids[i] = medoids[i]
         if hist == patience:
             converged = 1
+        itr += 1
+
+    if converged:
+        print "Clustering converged after %d iterations"%(itr)
+    else:
+        print "Maximum number of iterations reached : %d"%(max_iterations)
 
     # Clean up
     PyMem_Free(prev_medoids)
 
 
-def test_clustering():
+def test_clustering(int num_clusters=200, int max_iterations=500):
     cdef str infile = './data/3k.vec'
     cdef DataSet * all_vectors = getAllVectors(infile)
     cdef Similarity * sim_matrix = buildSimilarityMatrix(all_vectors)
-    print 'Built Similarity Matrix'
 
-    cdef int num_clusters = 200, max_iterations = 10000, patience = 20
+    cdef patience = 20
     cdef ULong * medoids = <ULong *> PyMem_Malloc(sizeof(ULong) * num_clusters)
     cdef ULong * assigned = <ULong *> PyMem_Malloc(sizeof(ULong) *
                                                     all_vectors.size)
+    if not medoids or not assigned:
+        raise MemoryError()
     buildClusters(
         sim_matrix,
         medoids,
@@ -203,4 +233,5 @@ def test_clustering():
         max_iterations,
         patience
     )
-    print "Built Clusters"
+    PyMem_Free(medoids)
+    PyMem_Free(assigned)
