@@ -12,8 +12,14 @@ ext_modules = [
     ),
     Extension(
         "clustering",
-        ["clustering.pyx"],
-    )
+        ["clustering.pyx", "clustering.pxd"],
+        extra_compile_args=["-O3", "-ffast-math", "-march=native", "-fopenmp"],
+        extra_link_args=["-fopenmp"]
+    ),
+    Extension(
+        "choose_vectors",
+        ["choose_vectors.pyx"],
+    ),
 ]
 
 setup(

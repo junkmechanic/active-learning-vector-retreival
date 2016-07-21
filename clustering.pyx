@@ -6,8 +6,6 @@ from cython.parallel import parallel, prange
 from similarity cimport DataSet, Similarity, getSimilarity
 from similarity cimport getAllVectors, buildSimilarityMatrix
 
-ctypedef unsigned long ULong
-
 
 cdef void doAssignments(
     ULong * medoids,
@@ -161,6 +159,7 @@ cdef void buildClusters(
     int num_clusters,
     int max_iterations,
     int patience,
+    unsigned int seed,
 ):
     """
     medoids : array containing the indices of the medoids
@@ -174,7 +173,6 @@ cdef void buildClusters(
     """
     cdef:
         int i, j, hist, itr = 0
-        unsigned int seed = 200816
         ULong rand_idx
         bint unique, converged
         double * entropy = <double *> PyMem_Malloc(sizeof(double) *
@@ -234,10 +232,12 @@ def test_clustering(int num_clusters=200, int max_iterations=500):
     cdef Similarity * sim_matrix = buildSimilarityMatrix(all_vectors)
     print "Built Similarity Matrix"
 
-    cdef patience = 20
-    cdef ULong * medoids = <ULong *> PyMem_Malloc(sizeof(ULong) * num_clusters)
-    cdef ULong * assigned = <ULong *> PyMem_Malloc(sizeof(ULong) *
-                                                    all_vectors.size)
+    cdef:
+        patience = 20
+        unsigned int seed = 200816
+        ULong * medoids = <ULong *> PyMem_Malloc(sizeof(ULong) * num_clusters)
+        ULong * assigned = <ULong *> PyMem_Malloc(sizeof(ULong) *
+                                                  all_vectors.size)
     if not medoids or not assigned:
         raise MemoryError()
     buildClusters(
@@ -247,7 +247,8 @@ def test_clustering(int num_clusters=200, int max_iterations=500):
         all_vectors.size,
         num_clusters,
         max_iterations,
-        patience
+        patience,
+        seed
     )
     PyMem_Free(medoids)
     PyMem_Free(assigned)
