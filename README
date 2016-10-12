@@ -1,0 +1,34 @@
+This file documents the workings of the vector retrieval part of the active
+learning system.
+
+The source files that can be edited have the extension .pyx.
+These files get compiled to .so (shared object) files to be used as binaries.
+
+The main point of entry to the system is through the python script
+'al_get_vectors.py'. Following are to be specified:
+
+    'vector_file' : This should contain all the vectors, one per line.
+    'confidence_file' : This should contain the classification confidence of the 
+        classifier on each vector corresponding to the same index in the
+        vector_file.
+    'num_clusters' : This should be the maximum number of clusters that would
+        ever be retrieved from the system. So choose this number wisely. Because
+        if this number is changed, then the clusters would be computed again.
+    'num_candidates' : This is the number of vectors you want for the current
+        round of annotations. This should be less than num_clusters. Ideally,
+        after all the rounds of annotations, the num_candidates from each round
+        should all add up to num_clusters.
+
+Please keep in mind that after a round of annotations, a new set of confidence
+scores should be provided to the system. The system will use the cluster mediods
+previously computed and compute a new score for each mediod based on the updated
+confidence scores. After this, the system will return the top 'n' mediods, where
+'n' corresponds to 'num_candidates'.
+
+Please note that the system does not remember the candidates from the previous
+rounds. So two consecutive rounds might have an overlap in the candidates. This
+is because the system does not eliminate the previously computed top mediods
+from the dataset. So with the new confidence scores, these mediods might appear
+in the top ranks again. Although, if the classifier is doing a good job, there
+should generally not be a big overlap between the candidate list of two
+consecutive rounds.
